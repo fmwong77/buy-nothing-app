@@ -1,4 +1,4 @@
-import { SIGN_UP, SIGN_IN } from '../constants';
+import { SIGN_UP, SIGN_IN, GET_CAT } from '../constants';
 
 export const signUp = (user) => {
 	return {
@@ -11,5 +11,12 @@ export const signIn = (user) => {
 	return {
 		type: SIGN_IN,
 		user
+	};
+};
+
+export const getCategories = (categories) => {
+	return {
+		type: GET_CAT,
+		categories
 	};
 };

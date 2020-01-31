@@ -2,8 +2,17 @@ import React from 'react';
 import { signUp } from '../actions';
 import { useSelector, useDispatch } from 'react-redux';
 import swal from 'sweetalert';
+import {
+	Button,
+	Form,
+	Grid,
+	Header,
+	Message,
+	Segment
+	// Icon
+} from 'semantic-ui-react';
 
-function SignUp() {
+function SignUp(props) {
 	const counter = useSelector((state) => state.counter);
 	const user = useSelector((state) => state.user);
 	const dispatch = useDispatch();
@@ -17,7 +26,7 @@ function SignUp() {
 
 		if (username.length === 0 || password.length === 0) {
 			swal('Oops!', 'Username or password cannot be blank...', 'error');
-		} else if (password !== e.target.confirmpassword.value) {
+		} else if (password !== e.target.confirm_password.value) {
 			swal('Oops!', 'Your password does not match...', 'error');
 		} else {
 			let data = {
@@ -46,7 +55,8 @@ function SignUp() {
 								'success'
 							);
 
-							// this.props.history.push('/');
+							props.history.push('/item-details');
+
 							break;
 						case 'User already exists':
 							swal(
@@ -70,44 +80,48 @@ function SignUp() {
 
 	return (
 		<div className="card">
-			<h5 className="card-header info-color white-text text-center py-4">
-				<strong>Sign Up...</strong>
-			</h5>
 			<br></br>
-			<div className="card-body px-lg-5 pt-0">
-				<form
-					className="text-center"
-					style={{ color: '#757575' }}
-					action="#!"
-					onSubmit={(event) => handleSubmit(event)}
-				>
-					<div className="md-form">
-						<input
-							type="text"
-							name="username"
-							className="form-control"
-							placeholder="Username"
-							// onChange={(e) => handleOnChange(e)}
-						></input>
-						<input
-							type="password"
-							name="password"
-							className="form-control"
-							placeholder="Password"
-							// onChange={(e) => this.handleOnChange(e)}
-						></input>
-						<input
-							type="password"
-							name="confirmpassword"
-							className="form-control"
-							placeholder="Confirm Password"
-						></input>
-						<button className="btn btn-success" type="submit">
-							Sign Up
-						</button>
-					</div>
-				</form>
-			</div>
+			<br></br>
+			<br></br>
+			<Grid textAlign="center" verticalAlign="middle">
+				<Grid.Column style={{ maxWidth: 450 }}>
+					<Header as="h2" color="teal" textAlign="center">
+						<img src="/static/images/logo.png" alt="logo" className="image" />{' '}
+						Sign-up a new account
+					</Header>
+					<Form size="large" onSubmit={(event) => handleSubmit(event)}>
+						<Segment stacked>
+							<Form.Input
+								fluid
+								icon="user"
+								iconPosition="left"
+								placeholder="Username"
+								name="username"
+								ref={(input) => (this.inputtext = input)}
+							/>
+							<Form.Input
+								fluid
+								icon="lock"
+								iconPosition="left"
+								placeholder="Password"
+								type="password"
+								name="password"
+							/>
+							<Form.Input
+								fluid
+								icon="lock"
+								iconPosition="left"
+								placeholder="Confirm Password"
+								type="password"
+								name="confirm_password"
+							/>
+							<Button color="teal" fluid size="large" type="submit">
+								Sign Up
+							</Button>
+						</Segment>
+					</Form>
+				</Grid.Column>
+			</Grid>
 		</div>
 	);
 }
