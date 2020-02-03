@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, Header, Image } from 'semantic-ui-react';
-import Bubble from './Bubble';
 
 const Home = () => {
 	return (

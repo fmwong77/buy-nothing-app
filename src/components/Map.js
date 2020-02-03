@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { saveCoordinate } from '../actions';
 
 import {
 	withGoogleMap,
@@ -204,20 +206,23 @@ class Map extends Component {
 			latValue = place.geometry.location.lat(),
 			lngValue = place.geometry.location.lng();
 		// Set these values in the state.
-		this.setState({
-			address: address ? address : '',
-			area: area ? area : '',
-			city: city ? city : '',
-			state: state ? state : '',
-			markerPosition: {
-				lat: latValue,
-				lng: lngValue
+		this.setState(
+			{
+				address: address ? address : '',
+				area: area ? area : '',
+				city: city ? city : '',
+				state: state ? state : '',
+				markerPosition: {
+					lat: latValue,
+					lng: lngValue
+				},
+				mapPosition: {
+					lat: latValue,
+					lng: lngValue
+				}
 			},
-			mapPosition: {
-				lat: latValue,
-				lng: lngValue
-			}
-		});
+			this.props.saveCoordinate({ lat: latValue, lng: lngValue })
+		);
 	};
 
 	render() {
@@ -338,4 +343,13 @@ class Map extends Component {
 		return map;
 	}
 }
-export default Map;
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		saveCoordinate: (coordinate) => {
+			dispatch(saveCoordinate(coordinate));
+		}
+	};
+};
+
+export default connect(null, mapDispatchToProps)(Map);

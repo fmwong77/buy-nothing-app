@@ -23,12 +23,14 @@ function SignIn() {
 				.then((response) => response.json())
 				.then((data) => {
 					if (data.length > 0) {
+						const user_id = data[0].id;
 						dispatch(
 							signIn({
-								username,
-								password
+								user_id,
+								username
 							})
 						);
+						localStorage.setItem('token', data.jwt);
 						// this.props.history.push('/');
 					} else {
 						swal('Oops!', 'Invalid Username or Password!', 'error');

@@ -1,14 +1,19 @@
-import React, { Component } from 'react';
-import { Container, Header, Image } from 'semantic-ui-react';
+import React from 'react';
+import { Container } from 'semantic-ui-react';
+import ItemCardFront from './ItemCardFront';
+import '../styles/ItemCard.css';
+import { Grid } from 'semantic-ui-react';
 
-class ItemCard extends Component {
-	render() {
-		return (
-			<div className="sample-page-one">
-				<Container text style={{ marginTop: '7em' }}></Container>
+const ItemCard = (props) => {
+	return (
+		<Grid relaxed columns={4}>
+			<div className="item-card">
+				<Container text style={{ marginTop: '7em' }}>
+					<ItemCardFront {...props} />
+				</Container>
 			</div>
-		);
-	}
-}
+		</Grid>
+	);
+};
 
 export default ItemCard;
