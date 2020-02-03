@@ -1,17 +1,33 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import { Container, Dropdown, Image, Icon, Menu } from 'semantic-ui-react';
+import { Container, Dropdown, Image, Menu, Icon } from 'semantic-ui-react';
 
 import '../styles/NavBar.css';
-import Login from './Login';
-import SignUp from './SignUp';
+import { signOut } from '../actions';
 
 class NavBar extends Component {
-	state = {};
+	constructor(props) {
+		super(props);
+		this.state = {};
+	}
 
-	handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+	handleItemClick = (e, { name }) => {
+		this.setState({ activeItem: name });
+		if (name === 'sign-out') {
+			this.props.signOut({
+				id: null,
+				username: null,
+				isSignedIn: false
+			});
+
+			console.log(this.props);
+
+			// this.props.history.push('/');
+		}
+	};
 
 	render() {
 		const { activeItem } = this.state;
@@ -38,29 +54,50 @@ class NavBar extends Component {
 
 						<Menu.Item
 							as={Link}
-							to="first-page"
-							name="first-page"
-							active={activeItem === 'first-page'}
-							onClick={this.handleItemClick}
-						>
-							Page 1
-						</Menu.Item>
+							// to="item-browser"
+							// name="item-browser"
+							// active={activeItem === 'item-browser'}
+							// onClick={this.handleItemClick}
+						></Menu.Item>
 
 						<Dropdown item simple text="Member's Area">
 							<Dropdown.Menu>
-								<Dropdown.Item>Manage My Post</Dropdown.Item>
+								{this.props.isSignedIn ? (
+									<Dropdown.Item as={Link} to="item-browser">
+										View Posts
+									</Dropdown.Item>
+								) : (
+									<Dropdown.Item as={Link} to="sign-in">
+										View Posts
+									</Dropdown.Item>
+								)}
+								{this.props.isSignedIn ? (
+									<Dropdown.Item as={Link} to="manage-my-post">
+										Manage My Post
+									</Dropdown.Item>
+								) : (
+									<Dropdown.Item as={Link} to="sign-in">
+										Manage My Post
+									</Dropdown.Item>
+								)}
+								{/* {this.props.isSignedIn ? ( */}
 								<Dropdown.Item>Change Password</Dropdown.Item>
-								{/* <Dropdown.Divider />
-								<Dropdown.Header>Header Item</Dropdown.Header>
+								{/* ) : (
+									<Dropdown.Item as={Link} to="sign-in">
+										Change Password
+									</Dropdown.Item>
+								)} */}
+								<Dropdown.Divider />
+								<Dropdown.Header>Manage My Post</Dropdown.Header>
 								<Dropdown.Item>
 									<Icon name="dropdown" />
 									<span className="text">Submenu</span>
 									<Dropdown.Menu>
-										<Dropdown.Item>List Item</Dropdown.Item>
-										<Dropdown.Item>List Item</Dropdown.Item>
+										<Dropdown.Item>Create New Post</Dropdown.Item>
+										<Dropdown.Item>Edit Current Post</Dropdown.Item>
 									</Dropdown.Menu>
 								</Dropdown.Item>
-								<Dropdown.Item>List Item</Dropdown.Item> */}
+								<Dropdown.Item>Change Password</Dropdown.Item>
 							</Dropdown.Menu>
 						</Dropdown>
 						<Menu.Item
@@ -72,15 +109,27 @@ class NavBar extends Component {
 						>
 							Sign Up
 						</Menu.Item>
-						<Menu.Item
-							as={Link}
-							to="sign-in"
-							name="sign-in"
-							active={activeItem === 'sign-in'}
-							onClick={this.handleItemClick}
-						>
-							Sign In
-						</Menu.Item>
+						{this.props.isSignedIn ? (
+							<Menu.Item
+								as={Link}
+								to="sign-out"
+								name="sign-out"
+								active={activeItem === 'sign-out'}
+								onClick={this.handleItemClick}
+							>
+								Sign Out
+							</Menu.Item>
+						) : (
+							<Menu.Item
+								as={Link}
+								to="sign-in"
+								name="sign-in"
+								active={activeItem === 'sign-in'}
+								onClick={this.handleItemClick}
+							>
+								Sign In
+							</Menu.Item>
+						)}
 					</Container>
 				</Menu>
 			</div>
@@ -88,4 +137,20 @@ class NavBar extends Component {
 	}
 }
 
-export default NavBar;
+const mapStateToProps = (state) => {
+	console.log(state.user.isSignedIn);
+
+	return { isSignedIn: state.user.isSignedIn };
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		signOut: (user) => {
+			console.log(user);
+
+			dispatch(signOut(user));
+		}
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

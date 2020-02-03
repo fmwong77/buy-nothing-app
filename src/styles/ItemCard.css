@@ -1,0 +1,11 @@
+.item-card:hover {
+	transform: scale(1.05);
+}
+
+.item-card {
+	/* width: 350px;
+	height: 350px; */
+	margin: 10px;
+	transition: transform 1s;
+	transform-style: preserve-3d;
+}
