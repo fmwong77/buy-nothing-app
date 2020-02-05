@@ -172,20 +172,23 @@ class Map extends Component {
 					city = this.getCity(addressArray),
 					area = this.getArea(addressArray),
 					state = this.getState(addressArray);
-				this.setState({
-					address: address ? address : '',
-					area: area ? area : '',
-					city: city ? city : '',
-					state: state ? state : '',
-					markerPosition: {
-						lat: newLat,
-						lng: newLng
+				this.setState(
+					{
+						address: address ? address : '',
+						area: area ? area : '',
+						city: city ? city : '',
+						state: state ? state : '',
+						markerPosition: {
+							lat: newLat,
+							lng: newLng
+						},
+						mapPosition: {
+							lat: newLat,
+							lng: newLng
+						}
 					},
-					mapPosition: {
-						lat: newLat,
-						lng: newLng
-					}
-				});
+					this.props.saveCoordinate({ lat: newLat, lng: newLng })
+				);
 			},
 			(error) => {
 				console.error(error);

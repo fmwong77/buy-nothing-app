@@ -25,7 +25,6 @@ const Login = (props) => {
 
 		const username = e.target.username.value;
 		const password = e.target.password.value;
-		let id = 0;
 
 		console.log(username);
 		console.log(password);

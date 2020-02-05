@@ -2,11 +2,11 @@ import {
 	SIGN_UP,
 	SIGN_IN,
 	GET_CAT,
-	SAVE_POST,
+	POST_INFO,
 	SAVE_COORDINATE,
 	ALL_POST,
 	SIGN_OUT,
-	SET_POST_TYPE
+	SINGLE_POST
 } from '../constants';
 
 export const signUp = (user) => {
@@ -37,12 +37,12 @@ export const getCategories = (categories) => {
 	};
 };
 
-export const savePost = (post) => {
-	console.log(post);
+export const postInfo = (payload) => {
+	console.log(payload);
 
 	return {
-		type: SAVE_POST,
-		post
+		type: POST_INFO,
+		payload
 	};
 };
 
@@ -60,10 +60,10 @@ export const allPosts = (post) => {
 	};
 };
 
-export const setPostType = (postType) => {
+export const singlePost = (post) => {
 	return {
-		type: SET_POST_TYPE,
-		postType
+		type: SINGLE_POST,
+		post
 	};
 };
 

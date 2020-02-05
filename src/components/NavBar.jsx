@@ -46,7 +46,7 @@ class NavBar extends Component {
 						</Menu.Item>
 						<Menu.Item
 							as={Link}
-							to="home"
+							to="/home"
 							name="home"
 							active={activeItem === 'home'}
 							onClick={this.handleItemClick}
@@ -63,38 +63,26 @@ class NavBar extends Component {
 						<Dropdown item simple text="Member's Area">
 							<Dropdown.Menu>
 								{this.props.isSignedIn ? (
-									<Dropdown.Item as={Link} to="item-browser">
+									<Dropdown.Item as={Link} to="/post-browser">
 										View Posts
 									</Dropdown.Item>
 								) : (
-									<Dropdown.Item as={Link} to="sign-in">
+									<Dropdown.Item as={Link} to="/sign-in">
 										View Posts
 									</Dropdown.Item>
 								)}
-								{this.props.isSignedIn ? (
-									<Dropdown.Item as={Link} to="manage-my-post">
-										Manage My Post
-									</Dropdown.Item>
-								) : (
-									<Dropdown.Item as={Link} to="sign-in">
-										Manage My Post
-									</Dropdown.Item>
-								)}
-								{/* {this.props.isSignedIn ? ( */}
-								<Dropdown.Item>Change Password</Dropdown.Item>
-								{/* ) : (
-									<Dropdown.Item as={Link} to="sign-in">
-										Change Password
-									</Dropdown.Item>
-								)} */}
 								<Dropdown.Divider />
-								<Dropdown.Header>Manage My Post</Dropdown.Header>
+								{/* <Dropdown.Header>Manage My Post</Dropdown.Header> */}
 								<Dropdown.Item>
 									<Icon name="dropdown" />
-									<span className="text">Submenu</span>
+									<span className="text">Manage My Post</span>
 									<Dropdown.Menu>
-										<Dropdown.Item>Create New Post</Dropdown.Item>
-										<Dropdown.Item>Edit Current Post</Dropdown.Item>
+										<Dropdown.Item as={Link} to="/new-post">
+											Create New Post
+										</Dropdown.Item>
+										<Dropdown.Item as={Link} to="/manage-my-post">
+											Edit Current Post
+										</Dropdown.Item>
 									</Dropdown.Menu>
 								</Dropdown.Item>
 								<Dropdown.Item>Change Password</Dropdown.Item>
@@ -102,7 +90,7 @@ class NavBar extends Component {
 						</Dropdown>
 						<Menu.Item
 							as={Link}
-							to="sign-up"
+							to="/sign-up"
 							name="sign-up"
 							active={activeItem === 'sign-up'}
 							onClick={this.handleItemClick}
@@ -112,7 +100,7 @@ class NavBar extends Component {
 						{this.props.isSignedIn ? (
 							<Menu.Item
 								as={Link}
-								to="sign-out"
+								to="/sign-out"
 								name="sign-out"
 								active={activeItem === 'sign-out'}
 								onClick={this.handleItemClick}
@@ -122,7 +110,7 @@ class NavBar extends Component {
 						) : (
 							<Menu.Item
 								as={Link}
-								to="sign-in"
+								to="/sign-in"
 								name="sign-in"
 								active={activeItem === 'sign-in'}
 								onClick={this.handleItemClick}
