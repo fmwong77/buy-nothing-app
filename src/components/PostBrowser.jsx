@@ -2,11 +2,10 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { allPosts, setPostType } from '../actions';
+import { allPosts } from '../actions';
 import ItemCard from './ItemCard';
-import { Grid } from 'semantic-ui-react';
 
-const ItemBrowser = (props) => {
+const PostBrowser = (props) => {
 	const dispatch = useDispatch();
 	const state = useSelector((state) => state.post);
 	const user = useSelector((state) => state.user);
@@ -32,7 +31,6 @@ const ItemBrowser = (props) => {
 
 		console.log(data);
 		dispatch(allPosts(data));
-		// dispatch(setPostType(props.type));
 	};
 
 	return (
@@ -44,4 +42,4 @@ const ItemBrowser = (props) => {
 		</div>
 	);
 };
-export default ItemBrowser;
+export default PostBrowser;

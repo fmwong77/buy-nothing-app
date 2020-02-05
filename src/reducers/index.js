@@ -4,15 +4,15 @@ import categoryReducer from './category';
 import { combineReducers } from 'redux';
 import postReducer from './post';
 import mapReducer from './map';
-// import typeReducer from './type';
+import postInfoReducer from './postinfo';
 
 const allReducer = combineReducers({
 	counter: counterReducer,
 	user: userReducer,
 	categories: categoryReducer,
 	post: postReducer,
-	map: mapReducer
-	// postType: typeReducer
+	map: mapReducer,
+	postInfo: postInfoReducer
 });
 
 export default allReducer;

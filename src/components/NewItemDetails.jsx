@@ -3,21 +3,16 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Form, Grid, Card, Image, Message } from 'semantic-ui-react';
-import {
-	getCategories,
-	postInfo,
-	singlePost,
-	saveCoordinate
-} from '../actions';
+import { getCategories, newPost, singlePost, saveCoordinate } from '../actions';
 import Map from './Map';
 import swal from 'sweetalert';
 import { DirectUpload } from 'activestorage';
 
-const NewPost = (props) => {
+const ItemDetails = (props) => {
 	const dispatch = useDispatch();
 	const categories = useSelector((state) => state.categories);
-	// const post = useSelector((state) => state.post);
-	const info = useSelector((state) => state.postInfo);
+	const post = useSelector((state) => state.post);
+	const new_post = useSelector((state) => state.newPost);
 	const user = useSelector((state) => state.user);
 	const coordinate = useSelector((state) => state.map);
 	const token = localStorage.getItem('token');
@@ -47,42 +42,65 @@ const NewPost = (props) => {
 		if (title.length === 0 || description.length === 0) {
 			swal('Oops!', 'Title or description cannot be blank...', 'error');
 		}
-		console.log(info);
+		console.log(post);
 		// debugger;
 		let data = {
 			title: title,
 			description: description,
-			category_id: info.category_id,
+			category_id: new_post[0].category_id,
 			user_id: user.id,
 			latitude: coordinate.lat,
 			longitude: coordinate.lng,
-			image: info.image
+			image: new_post[0].image
 		};
 		console.log(data);
 
 		const token = localStorage.getItem('token');
 
-		const configObject = {
-			method: 'POST',
-			mode: 'cors',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`
-			},
-			body: JSON.stringify(data)
-		};
+		if (post[0] === undefined) {
+			const configObject = {
+				method: 'POST',
+				mode: 'cors',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${token}`
+				},
+				body: JSON.stringify(data)
+			};
 
-		fetch('http://127.0.0.1:3000/api/v1/posts/', configObject)
-			.then((response) => response.json())
-			.then((object) => {
-				console.log(object);
-				console.log(object.id);
+			fetch('http://127.0.0.1:3000/api/v1/posts/', configObject)
+				.then((response) => response.json())
+				.then((object) => {
+					console.log(object);
+					console.log(object.id);
 
-				if (object) {
-					uploadFile(info.image, object.id);
-				}
-			});
+					if (object) {
+						uploadFile(new_post[0].image, object.id);
+					}
+				});
+		} else {
+			const configObject = {
+				method: 'PATCH',
+				mode: 'cors',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${token}`
+				},
+				body: JSON.stringify(data)
+			};
+
+			fetch(`http://127.0.0.1:3000/api/v1/posts/${post[0].id}`, configObject)
+				.then((response) => response.json())
+				.then((object) => {
+					console.log(object);
+
+					if (object) {
+						uploadFile(new_post[0].image, object.id);
+					}
+				});
+		}
 	};
 
 	const uploadFile = (file, postId) => {
@@ -118,7 +136,7 @@ const NewPost = (props) => {
 
 	const handleOnChange = (e) => {
 		if (e.target.type === 'file') {
-			dispatch(postInfo({ image: e.target.files[0] }));
+			dispatch(newPost({ image: e.target.files[0] }));
 		}
 	};
 
@@ -155,7 +173,7 @@ const NewPost = (props) => {
 							})}
 							placeholder="Select a Category"
 							onChange={(e, { value }) =>
-								dispatch(postInfo({ category_id: value }))
+								dispatch(newPost({ category_id: value }))
 							}
 						/>
 						<label>Files</label>
@@ -189,4 +207,4 @@ const NewPost = (props) => {
 	);
 };
 
-export default NewPost;
+export default ItemDetails;
