@@ -23,10 +23,10 @@ const ItemCardFront = (props) => {
 				<Card.Content extra>
 					{props.postType === 'manage' ? (
 						<div>
-							<Link to="/">
+							{/* <Link to="/">
 								<Icon name="like" />
-							</Link>
-							<Link to="/">
+							</Link> */}
+							<Link to={`/comments/${id}`}>
 								<Icon name="comments" />
 							</Link>
 							<Link to={`/post-details/${id}`}>
@@ -35,10 +35,10 @@ const ItemCardFront = (props) => {
 						</div>
 					) : (
 						<div>
-							<Link to="/">
+							{/* <Link to="/">
 								<Icon name="like" />
-							</Link>
-							<Link to="/">
+							</Link> */}
+							<Link to={`/comments/${id}`}>
 								<Icon name="comments" />
 							</Link>
 						</div>

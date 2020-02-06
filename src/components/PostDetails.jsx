@@ -62,15 +62,16 @@ const PostDetails = (props) => {
 
 		dispatch(
 			postInfo({
-				category_id: data.category_id
-			})
-		);
-
-		dispatch(
-			postInfo({
+				category_id: data.category_id,
 				image: data.image
 			})
 		);
+
+		// dispatch(
+		// 	postInfo({
+		// 		image: data.image
+		// 	})
+		// );
 
 		dispatch(
 			saveCoordinate({

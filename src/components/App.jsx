@@ -1,38 +1,34 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { browserHistory } from 'react-router';
 import 'semantic-ui-css/semantic.min.css';
 import { connect } from 'react-redux';
 
-import SamplePageOne from '../components/SamplePageOne';
-// import SamplePageTwo from '../components/SamplePageTwo';
-// import SamplePageThree from '../components/SamplePageThree';
 import NavBar from './NavBar';
 // import Footer from '../components/Footer';
 import Login from '../components/Login';
 import Home from '../components/Home';
 import SignUp from './SignUp';
-import ItemDetails from './PostDetails';
+import PostDetails from './PostDetails';
 import PostBrowser from './PostBrowser';
 import ChangePassword from './ChangePassword';
-// import NewPost from './NewItemDetails';
 import NewPost from './NewPost';
+import CommentContainier from './CommentContainer';
 
 class App extends Component {
 	render() {
 		console.log(this.props.isSignedIn);
 		return (
-			<Router>
+			<Router history={browserHistory}>
 				<div className="app">
-					<NavBar />
-					<Route exact path="/" component={Home} />
-					<Route exact path="/first-page" component={SamplePageOne} />
+					<NavBar render={(routeProps) => <NavBar {...routeProps} />} />
+					<Route exact path="/home" component={Home} />
 					<Route exact path="/sign-up" component={SignUp} />
 					<Route exact path="/sign-in" component={Login} />
 					<Route
 						exact
 						path="/post-details/:id"
-						// component={ItemDetails}
-						render={(props) => <ItemDetails {...props} />}
+						render={(props) => <PostDetails {...props} />}
 					>
 						{/* {!this.props.isSignedIn ? (
 							 
@@ -47,11 +43,16 @@ class App extends Component {
 					</Route>
 					<Route exact path="/post-browser">
 						{!this.props.isSignedIn ? (
-							<Redirect to="/sign-in" />
+							<Redirect to="/sign-in?redirect=post-browser" />
 						) : (
 							<PostBrowser type={'view'} />
 						)}
 					</Route>
+					<Route
+						exact
+						path="/comments/:id"
+						component={(props) => <CommentContainier {...props} />}
+					></Route>
 					<Route
 						exact
 						path="/manage-my-post"

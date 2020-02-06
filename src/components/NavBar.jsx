@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import { Container, Dropdown, Image, Menu, Icon } from 'semantic-ui-react';
 
 import '../styles/NavBar.css';
@@ -25,7 +24,7 @@ class NavBar extends Component {
 
 			console.log(this.props);
 
-			// this.props.history.push('/');
+			// this.props.history.push('/sign-in');
 		}
 	};
 
@@ -126,16 +125,12 @@ class NavBar extends Component {
 }
 
 const mapStateToProps = (state) => {
-	console.log(state.user.isSignedIn);
-
 	return { isSignedIn: state.user.isSignedIn };
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
 		signOut: (user) => {
-			console.log(user);
-
 			dispatch(signOut(user));
 		}
 	};

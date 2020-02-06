@@ -5,6 +5,7 @@ import { combineReducers } from 'redux';
 import postReducer from './post';
 import mapReducer from './map';
 import postInfoReducer from './postinfo';
+import commentRecuder from './comment';
 
 const allReducer = combineReducers({
 	counter: counterReducer,
@@ -12,7 +13,8 @@ const allReducer = combineReducers({
 	categories: categoryReducer,
 	post: postReducer,
 	map: mapReducer,
-	postInfo: postInfoReducer
+	postInfo: postInfoReducer,
+	comments: commentRecuder
 });
 
 export default allReducer;
