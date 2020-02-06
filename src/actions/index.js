@@ -6,8 +6,10 @@ import {
 	SAVE_COORDINATE,
 	ALL_POST,
 	SIGN_OUT,
-	SINGLE_POST
+	SINGLE_POST,
+	ALL_COMMENTS
 } from '../constants';
+import axios from 'axios';
 
 export const signUp = (user) => {
 	return {
@@ -67,32 +69,74 @@ export const singlePost = (post) => {
 	};
 };
 
-// export const userSignup = (user) => {
-// 	return async (dispatch) => {
-// 		const resp = await fetch('http://127.0.0.1:3000/api/v1/users/', {
-// 			method: 'POST',
-// 			headers: {
-// 				'Content-Type': 'application/json',
-// 				Accept: 'application/json'
-// 			},
-// 			body: JSON.stringify({ user })
-// 		});
-// 		const data = await resp.json();
-// 		if (data.message) {
-// 			console.log('error');
-// 		} else {
-// 			localStorage.setItem('token', data.jwt);
-// 			dispatch(signUp(data.user));
-// 		}
-// 	};
-// };
+export const allComments = (comments) => {
+	return {
+		type: ALL_COMMENTS,
+		comments
+	};
+};
 
-// export const fetchPost = () => {
-// 	return async (dispatch) => {
-// 		const resp = await fetch('http://127.0.0.1:3000/api/v1/posts');
-// 		const data = await resp.json();
-// 		if (data) {
-// 			return data;
-// 		}
-// 	};
-// };
+export const fetchPosts = (type, user_id) => (dispatch) => {
+	const token = localStorage.getItem('token');
+	console.log('fetching posts');
+
+	fetch(`http://localhost:3000/api/v1/posts?type=${type}&user_id=${user_id}`, {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${token}`
+		}
+	})
+		.then((response) => response.json())
+		.then((data) => dispatch(allPosts(data)));
+};
+
+export const fetchComments = (post_id) => (dispatch) => {
+	console.log('fetching comments');
+	const token = localStorage.getItem('token');
+
+	axios
+		.get(`http://localhost:3000/api/v1/comments?post_id=${post_id}`, {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		})
+		.then((response) => {
+			if (response && response.status === 200) {
+				console.log(response.data);
+				dispatch(allComments(response.data));
+			} else {
+				console.log('Error fetching comments');
+			}
+		})
+		.catch((error) => console.log(error.message));
+};
+
+export const postComment = (post_id, user_id, content) => (dispatch) => {
+	const token = localStorage.getItem('token');
+	let data = {
+		user_id: user_id,
+		post_id: post_id,
+		content: content
+	};
+
+	const configObject = {
+		method: 'POST',
+		mode: 'cors',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${token}`
+		},
+		body: JSON.stringify(data)
+	};
+
+	fetch('http://127.0.0.1:3000/api/v1/comments/', configObject)
+		.then((response) => response.json())
+		.then((data) => {
+			console.log([data]);
+			if (data) {
+				dispatch(allComments([data]));
+			}
+		});
+};

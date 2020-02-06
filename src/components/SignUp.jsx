@@ -77,13 +77,6 @@ function SignUp(props) {
 					}
 				});
 		}
-
-		// dispatch(
-		// 	signUp({
-		// 		username: e.target.username.value,
-		// 		password: e.target.password.value
-		// 	})
-		// );
 	};
 
 	return (

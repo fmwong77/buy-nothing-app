@@ -26,9 +26,6 @@ const Login = (props) => {
 		const username = e.target.username.value;
 		const password = e.target.password.value;
 
-		console.log(username);
-		console.log(password);
-
 		if (username.length === 0 || password.length === 0) {
 			swal('Oops!', 'Username or password cannot be blank...', 'error');
 		} else {
@@ -59,8 +56,8 @@ const Login = (props) => {
 								isSignedIn: true
 							})
 						);
-						props.history.push('/item-browser');
-						// props.history.push('/item-details');
+						props.history.push('/post-browser');
+						// props.history.push('/manage-my-post');
 					} else {
 						swal('Oops!', 'Invalid Username or Password!', 'error');
 					}
