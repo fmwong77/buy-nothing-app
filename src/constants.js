@@ -9,3 +9,7 @@ export const SINGLE_POST = 'SINGLE_POST';
 export const FETCH_POSTS = 'FETCH_POSTS';
 export const FETCH_COMMENTS = 'FETCH_COMMENTS';
 export const ALL_COMMENTS = 'ALL_COMMENTS';
+export const REPLY = 'REPLY';
+export const POST_REPLY = 'POST_REPLY';
+export const FETCH_REPLIES = 'FETCH_REPLIES';
+export const REPLY_INFO = 'REPLY_INFO';

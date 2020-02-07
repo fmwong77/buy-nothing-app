@@ -7,7 +7,9 @@ import {
 	ALL_POST,
 	SIGN_OUT,
 	SINGLE_POST,
-	ALL_COMMENTS
+	ALL_COMMENTS,
+	REPLY,
+	REPLY_INFO
 } from '../constants';
 import axios from 'axios';
 
@@ -76,16 +78,35 @@ export const allComments = (comments) => {
 	};
 };
 
-export const fetchPosts = (type, user_id) => (dispatch) => {
+export const reply = (reply) => {
+	return {
+		type: REPLY,
+		reply
+	};
+};
+
+export const replyInfo = (payload) => {
+	console.log(payload);
+
+	return {
+		type: REPLY_INFO,
+		payload
+	};
+};
+
+export const fetchPosts = (type, user_id, category_id) => (dispatch) => {
 	const token = localStorage.getItem('token');
 	console.log('fetching posts');
 
-	fetch(`http://localhost:3000/api/v1/posts?type=${type}&user_id=${user_id}`, {
-		method: 'GET',
-		headers: {
-			Authorization: `Bearer ${token}`
+	fetch(
+		`http://localhost:3000/api/v1/posts?type=${type}&user_id=${user_id}&category_id=${category_id}`,
+		{
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
 		}
-	})
+	)
 		.then((response) => response.json())
 		.then((data) => dispatch(allPosts(data)));
 };
@@ -107,6 +128,30 @@ export const fetchComments = (post_id) => (dispatch) => {
 				dispatch(allComments(response.data));
 			} else {
 				console.log('Error fetching comments');
+			}
+		})
+		.catch((error) => console.log(error.message));
+};
+
+export const fetchReplies = (comment_id) => (dispatch) => {
+	console.log('fetching replies');
+	console.log(comment_id);
+
+	const token = localStorage.getItem('token');
+
+	axios
+		.get(`http://localhost:3000/api/v1/replies?comment_id=${comment_id}`, {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		})
+		.then((response) => {
+			if (response && response.status === 200) {
+				console.log(response.data);
+				dispatch(reply(response.data));
+			} else {
+				console.log('Error fetching replies');
 			}
 		})
 		.catch((error) => console.log(error.message));
@@ -136,7 +181,67 @@ export const postComment = (post_id, user_id, content) => (dispatch) => {
 		.then((data) => {
 			console.log([data]);
 			if (data) {
-				dispatch(allComments([data]));
+				dispatch(allComments(data));
 			}
 		});
+};
+
+export const postReply = (reply) => (dispatch) => {
+	const token = localStorage.getItem('token');
+	let data = {
+		user_id: reply.user_id,
+		comment_id: reply.comment_id,
+		content: reply.content
+	};
+
+	console.log(reply.user_id);
+	console.log(reply.comment_id);
+	console.log(reply.content);
+
+	const configObject = {
+		method: 'POST',
+		mode: 'cors',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${token}`
+		},
+		body: JSON.stringify(data)
+	};
+
+	fetch('http://127.0.0.1:3000/api/v1/replies/', configObject)
+		.then((response) => response.json())
+		.then((data) => {
+			console.log([data]);
+			if (data) {
+				// const d = {
+				// 	user_id: data.user_id,
+				// 	comment_id: data.comment_id,
+				// 	content: data.content
+				// };
+				// dispatch(reply([d]));
+			}
+		});
+};
+
+export const fetchCategories = () => (dispatch) => {
+	console.log('fetching categories');
+	const token = localStorage.getItem('token');
+
+	axios
+		.get('http://localhost:3000/api/v1/categories', {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		})
+		.then((response) => {
+			if (response && response.status === 200) {
+				console.log(response.data);
+				dispatch(getCategories(response.data));
+			} else {
+				console.log('Error fetching categories');
+			}
+		})
+		.catch((error) => console.log(error.message));
 };

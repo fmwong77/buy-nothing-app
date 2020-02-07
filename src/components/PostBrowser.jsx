@@ -2,18 +2,20 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPosts } from '../actions';
+import { fetchPosts, signIn } from '../actions';
 import ItemCard from './ItemCard';
 import { Redirect } from 'react-router';
+import Search from './Search';
 
 const PostBrowser = (props) => {
+	// todo: redirect to signIn if not signed-in
 	const dispatch = useDispatch();
 	const posts = useSelector((state) => state.post);
 	const user = useSelector((state) => state.user);
 
 	useEffect(() => {
 		// getPosts();
-		dispatch(fetchPosts(props.type, user.id));
+		dispatch(fetchPosts(props.type, user.id, 0));
 	}, []);
 
 	// const getPosts = async () => {
@@ -34,11 +36,21 @@ const PostBrowser = (props) => {
 	// };
 
 	// return <div></div>;
+	console.log(posts);
+
 	return (
-		<div className="ui relaxed five column grid">
-			{posts.length === 0
-				? null
-				: posts.map((post) => <ItemCard post={post} postType={props.type} />)}
+		<div>
+			<br></br>
+			<br></br>
+			<br></br>
+			<div className="ui relaxed three column grid">
+				<Search />
+			</div>
+			<div className="ui relaxed five column grid">
+				{posts.length === 0
+					? null
+					: posts.map((post) => <ItemCard post={post} postType={props.type} />)}
+			</div>
 		</div>
 	);
 };

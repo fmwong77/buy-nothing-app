@@ -83,6 +83,7 @@ const NewPost = (props) => {
 					uploadFile(info.image, object.id);
 				}
 			});
+		// props.history.push('/post-browser');
 	};
 
 	const uploadFile = (file, postId) => {

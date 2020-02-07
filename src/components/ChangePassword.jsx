@@ -54,12 +54,13 @@ function ChangePassword(props) {
 			fetch(`http://127.0.0.1:3000/api/v1/users/${user.id}`, configObject)
 				.then((response) => response.json())
 				.then((object) => {
-					console.log(object.user);
-					if (object.user) {
+					console.log(object);
+					if (object) {
 						swal('', 'Your password has been changed', 'success');
 						localStorage.setItem('token', object.jwt);
 
-						props.history.push('/item-browser');
+						// todo: need redirect
+						// props.history.push('/item-browser');
 					} else {
 						swal('Oops!', 'There is an error changing your password', 'error');
 					}

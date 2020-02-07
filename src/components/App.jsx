@@ -18,6 +18,7 @@ import CommentContainier from './CommentContainer';
 class App extends Component {
 	render() {
 		console.log(this.props.isSignedIn);
+		console.log(this.props.username);
 		return (
 			<Router history={browserHistory}>
 				<div className="app">
@@ -29,17 +30,13 @@ class App extends Component {
 						exact
 						path="/post-details/:id"
 						render={(props) => <PostDetails {...props} />}
-					>
-						{/* {!this.props.isSignedIn ? (
-							 
-							<Redirect to="/sign-in" />
-						)} */}
-					</Route>
-					<Route exact path="/new-post" component={NewPost}>
-						{/* {!this.props.isSignedIn ? (
-							 
-							<Redirect to="/sign-in" />
-						)} */}
+					></Route>
+					<Route exact path="/new-post">
+						{!this.props.isSignedIn ? (
+							<Redirect to="/sign-in?redirect=post-browser" />
+						) : (
+							<NewPost />
+						)}
 					</Route>
 					<Route exact path="/post-browser">
 						{!this.props.isSignedIn ? (
@@ -73,6 +70,9 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-	return { isSignedIn: state.user.isSignedIn };
+	return {
+		isSignedIn: state.user.isSignedIn,
+		username: state.user.username
+	};
 };
 export default connect(mapStateToProps)(App);
