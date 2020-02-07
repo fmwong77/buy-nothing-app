@@ -22,9 +22,8 @@ class NavBar extends Component {
 				isSignedIn: false
 			});
 
-			console.log(this.props);
-
-			// this.props.history.push('/sign-in');
+			// todo: got error when do history.push
+			// this.props.history.push('/');
 		}
 	};
 
@@ -84,7 +83,9 @@ class NavBar extends Component {
 										</Dropdown.Item>
 									</Dropdown.Menu>
 								</Dropdown.Item>
-								<Dropdown.Item>Change Password</Dropdown.Item>
+								<Dropdown.Item as={Link} to="/change-password">
+									Change Password
+								</Dropdown.Item>
 							</Dropdown.Menu>
 						</Dropdown>
 						<Menu.Item
@@ -117,6 +118,9 @@ class NavBar extends Component {
 								Sign In
 							</Menu.Item>
 						)}
+						{!this.props.isSignedIn ? null : (
+							<Menu.Item>Welcome {this.props.username}</Menu.Item>
+						)}
 					</Container>
 				</Menu>
 			</div>
@@ -125,7 +129,7 @@ class NavBar extends Component {
 }
 
 const mapStateToProps = (state) => {
-	return { isSignedIn: state.user.isSignedIn };
+	return { isSignedIn: state.user.isSignedIn, username: state.user.username };
 };
 
 const mapDispatchToProps = (dispatch) => {

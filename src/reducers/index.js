@@ -6,6 +6,8 @@ import postReducer from './post';
 import mapReducer from './map';
 import postInfoReducer from './postinfo';
 import commentRecuder from './comment';
+import replyReducer from './reply';
+import replyInfoReducer from './replyInfo';
 
 const allReducer = combineReducers({
 	counter: counterReducer,
@@ -14,7 +16,9 @@ const allReducer = combineReducers({
 	post: postReducer,
 	map: mapReducer,
 	postInfo: postInfoReducer,
-	comments: commentRecuder
+	comments: commentRecuder,
+	reply: replyReducer,
+	replyInfo: replyInfoReducer
 });
 
 export default allReducer;

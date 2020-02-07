@@ -67,12 +67,6 @@ const PostDetails = (props) => {
 			})
 		);
 
-		// dispatch(
-		// 	postInfo({
-		// 		image: data.image
-		// 	})
-		// );
-
 		dispatch(
 			saveCoordinate({
 				lat: data.latitude,
@@ -105,7 +99,8 @@ const PostDetails = (props) => {
 
 		updatePost(title, description);
 		uploadFile(title, description);
-		// props.history.push
+		// todo: if redirect to manage-my-post will hit an error
+		props.history.push('/post-browser');
 	};
 
 	const updatePost = (title, description) => {
