@@ -9,7 +9,8 @@ import {
 	SINGLE_POST,
 	ALL_COMMENTS,
 	REPLY,
-	REPLY_INFO
+	REPLY_INFO,
+	REPLY_USER
 } from '../constants';
 import axios from 'axios';
 
@@ -94,19 +95,25 @@ export const replyInfo = (payload) => {
 	};
 };
 
-export const fetchPosts = (type, user_id, category_id) => (dispatch) => {
+export const replyUser = (payload) => {
+	console.log(payload);
+
+	return {
+		type: REPLY_USER,
+		payload
+	};
+};
+
+export const fetchPosts = (type, user_id) => (dispatch) => {
 	const token = localStorage.getItem('token');
 	console.log('fetching posts');
 
-	fetch(
-		`http://localhost:3000/api/v1/posts?type=${type}&user_id=${user_id}&category_id=${category_id}`,
-		{
-			method: 'GET',
-			headers: {
-				Authorization: `Bearer ${token}`
-			}
+	fetch(`http://localhost:3000/api/v1/posts?type=${type}&user_id=${user_id}`, {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${token}`
 		}
-	)
+	})
 		.then((response) => response.json())
 		.then((data) => dispatch(allPosts(data)));
 };
@@ -152,6 +159,29 @@ export const fetchReplies = (comment_id) => (dispatch) => {
 				dispatch(reply(response.data));
 			} else {
 				console.log('Error fetching replies');
+			}
+		})
+		.catch((error) => console.log(error.message));
+};
+
+export const fetchReplyUser = (user_id) => (dispatch) => {
+	console.log('fetching replies user');
+
+	const token = localStorage.getItem('token');
+
+	axios
+		.get(`http://localhost:3000/api/v1/users/${user_id}`, {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		})
+		.then((response) => {
+			if (response && response.status === 200) {
+				console.log(response.data);
+				dispatch(replyUser(response.data));
+			} else {
+				console.log('Error fetching replies user');
 			}
 		})
 		.catch((error) => console.log(error.message));

@@ -17,8 +17,6 @@ import CommentContainier from './CommentContainer';
 
 class App extends Component {
 	render() {
-		console.log(this.props.isSignedIn);
-		console.log(this.props.username);
 		return (
 			<Router history={browserHistory}>
 				<div className="app">
@@ -33,7 +31,7 @@ class App extends Component {
 					></Route>
 					<Route exact path="/new-post">
 						{!this.props.isSignedIn ? (
-							<Redirect to="/sign-in?redirect=post-browser" />
+							<Redirect to="/sign-in?redirect=new-post" />
 						) : (
 							<NewPost />
 						)}

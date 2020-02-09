@@ -35,12 +35,13 @@ class NavBar extends Component {
 				<Menu fixed="top" inverted>
 					<Container>
 						<Menu.Item as="a" header>
-							<Image
+							<i class="fa fa-diamond fa-2x" aria-hidden="true"></i>
+							{/* <Image
 								size="mini"
 								src="/static/images/logo.png"
 								style={{ marginRight: '1.5em' }}
-							/>
-							Gift Away
+							/> */}
+							Gift-Away
 						</Menu.Item>
 						<Menu.Item
 							as={Link}
@@ -79,7 +80,7 @@ class NavBar extends Component {
 											Create New Post
 										</Dropdown.Item>
 										<Dropdown.Item as={Link} to="/manage-my-post">
-											Edit Current Post
+											Edit My Post
 										</Dropdown.Item>
 									</Dropdown.Menu>
 								</Dropdown.Item>

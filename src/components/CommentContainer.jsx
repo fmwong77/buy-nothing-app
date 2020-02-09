@@ -3,69 +3,65 @@ import React from 'react';
 import { Comment, Header, Form, Button } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import {
-	fetchComments,
-	postComment,
-	postReply,
-	reply,
-	replyInfo
-} from '../actions';
+import { fetchComments, postComment, postReply, replyInfo } from '../actions';
 import CommentCard from './CommentCard';
+import swal from 'sweetalert';
 
 const CommentContainier = (props) => {
 	const dispatch = useDispatch();
 	const comments = useSelector((state) => state.comments);
 	const user = useSelector((state) => state.user);
-	const replyData = useSelector((state) => state.reply);
+	// const replyData = useSelector((state) => state.reply);
 	const replyState = useSelector((state) => state.replyInfo);
 
 	useEffect(() => {
 		dispatch(fetchComments(props.match.params.id));
-		// resetReply();
 	}, []);
 
 	const handleSubmit = (e) => {
-		console.log(e.target.content.value);
-		console.log(props.match.params.id);
-		console.log(user.id);
 		e.preventDefault();
-		dispatch(
-			postComment(props.match.params.id, user.id, e.target.content.value)
-		);
-		resetReplyState();
+
+		if (e.target.name === 'generate') {
+			const rnd = Math.random() * (comments.length - 1) + 1;
+			swal('Your lucky number is...', `${Math.round(rnd)}`, 'success');
+		} else {
+			if (e.target.content.value.length > 0) {
+				dispatch(
+					postComment(props.match.params.id, user.id, e.target.content.value)
+				);
+				resetReplyState();
+			}
+		}
 		// props.history.push('/manage-my-post');
 	};
 
 	const resetReplyState = () => {
-		// const data = [];
 		dispatch(replyInfo(null));
 	};
 
 	const handleSubmitReply = (e) => {
-		console.log(e.target.content.value);
-		console.log(replyState[0].comment_id);
-		console.log(user.id);
 		e.preventDefault();
-		const data = {
-			comment_id: replyState[0].comment_id,
-			user_id: user.id,
-			content: e.target.content.value
-		};
-		dispatch(postReply(data));
-		resetReplyState();
+		if (e.target.name === 'close') {
+			resetReplyState();
+		} else {
+			if (e.target.content.value.length > 0) {
+				const data = {
+					comment_id: replyState[0].comment_id,
+					user_id: user.id,
+					content: e.target.content.value
+				};
+				dispatch(postReply(data));
+				resetReplyState();
+			}
+		}
 	};
 
-	console.log(replyData);
-	console.log(replyState);
-
 	return (
-		// <Grid verticalAlign="middle" textAlign="center">
-		// 	<Grid.Column style={{ maxWidth: 850 }}>
-		<div>
+		<div align="middle">
 			<br></br>
 			<br></br>
 			<br></br>
-			<Comment.Group>
+			<Comment.Group align="left">
 				<Header as="h3" dividing>
 					Comments
 				</Header>
@@ -81,7 +77,18 @@ const CommentContainier = (props) => {
 						primary
 						type="submit"
 					/>
+					{comments.length > 0 && comments[0].post.user_id === user.id ? (
+						<Button
+							content="Generate Random Number"
+							labelPosition="left"
+							icon="gift"
+							primary
+							name="generate"
+							onClick={(e) => handleSubmit(e)}
+						/>
+					) : null}
 				</Form>
+
 				{replyState.length === 0 ? null : (
 					<Form reply onSubmit={handleSubmitReply}>
 						<Form.TextArea
@@ -95,13 +102,19 @@ const CommentContainier = (props) => {
 							primary
 							type="submit"
 						/>
+						<Button
+							content="Close"
+							labelPosition="left"
+							icon="window close outline"
+							primary
+							name="close"
+							onClick={(e) => handleSubmitReply(e)}
+						/>
 					</Form>
 				)}
 			</Comment.Group>
+			{/* <Popup className={}/> */}
 		</div>
-
-		// 	</Grid.Column>
-		// </Grid>
 	);
 };
 

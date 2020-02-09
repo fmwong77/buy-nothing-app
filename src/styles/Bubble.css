@@ -1,0 +1,46 @@
+.bubble__container {
+	display: flex;
+	justify-content: center;
+}
+
+.bubble {
+	align-self: center;
+	background-size: cover;
+	background-position: center;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+	border-radius: 50%;
+	display: inline-flex;
+	height: 150px;
+	justify-content: center;
+	overflow: hidden;
+	position: relative;
+	width: 150px;
+}
+
+.bubble::after {
+	/* background-color: rgba(245, 245, 245, 0.6); */
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.bubble:hover {
+	cursor: pointer;
+	opacity: 1;
+}
+
+.bubble__container:nth-of-type(n + 5) .bubble {
+	transform: translate(50%, 0);
+}
+
+.bubble__container:nth-of-type(n + 9) .bubble {
+	transform: translate(0, 0);
+}
+
+.bubble__text {
+	align-self: center;
+	z-index: 5;
+}

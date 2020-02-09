@@ -1,0 +1,4 @@
+#categories__container {
+	grid-gap: 16px;
+	grid-template-columns: repeat(auto-fit, 150px);
+}
