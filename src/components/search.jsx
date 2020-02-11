@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef } from 'react';
-import { Form, Checkbox } from 'semantic-ui-react';
+import { Form, Grid, Button } from 'semantic-ui-react';
 import { fetchCategories, allPosts, filterInfo } from '../actions';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -77,43 +77,41 @@ const Search = (props) => {
 
 	return (
 		<div className="ui search">
-			<form onSubmit={(event) => handleFilter(event)}>
-				<div className="ui icon input">
-					Search by Title:<br></br>
-					<input
-						className="prompt"
-						// onChange={(event) => onChange(event)}
-						name="searchTerm"
-					/>
-					<i className="search icon" />
-				</div>
-				<Form.Select
-					// fluid
-					label="Category"
-					name="category"
-					options={renderCategory()}
-					placeholder="Select a Category"
-					onChange={(e, { value, text }) => {
-						dispatch(
-							filterInfo({
-								category_id: value,
-								category: text
-							})
-						);
-					}}
-					// text={category.category}
-				/>
-				<button type="submit" className="ui secondary button">
-					Filter
-				</button>
-				<button
-					name="showAll"
-					className="ui secondary button"
-					onClick={(e) => handleFilter(e)}
-				>
-					Show All
-				</button>
-			</form>
+			<Grid textAlign="center" verticalAlign="middle">
+				<Grid.Column style={{ maxWidth: 550 }}>
+					<Form onSubmit={(event) => handleFilter(event)}>
+						<Form.Field>
+							<input placeholder="Filter by Title" name="searchTerm" />
+						</Form.Field>
+						<Form.Select
+							fluid
+							// label="Category"
+							name="category"
+							options={renderCategory()}
+							placeholder="Select a Category"
+							onChange={(e, { value, text }) => {
+								dispatch(
+									filterInfo({
+										category_id: value,
+										category: text
+									})
+								);
+							}}
+						/>
+						<Button type="submit" secondary>
+							Filter
+						</Button>
+						<Button
+							type="submit"
+							name="showAll"
+							onClick={(e) => handleFilter(e)}
+							secondary
+						>
+							Show All
+						</Button>
+					</Form>
+				</Grid.Column>
+			</Grid>
 		</div>
 	);
 };

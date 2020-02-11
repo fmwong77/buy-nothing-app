@@ -13,6 +13,7 @@ const PostBrowser = (props) => {
 	const posts = useSelector((state) => state.post);
 	const user = useSelector((state) => state.user);
 	const filterInfo = useSelector((state) => state.filterInfo);
+	console.log(user.id);
 
 	useEffect(() => {
 		// getPosts();
@@ -44,6 +45,7 @@ const PostBrowser = (props) => {
 
 	return (
 		<div>
+			<br></br>
 			<br></br>
 			<br></br>
 			<br></br>

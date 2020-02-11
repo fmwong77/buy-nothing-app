@@ -232,7 +232,7 @@ class Map extends Component {
 		const AsyncMap = withScriptjs(
 			withGoogleMap((props) => (
 				<GoogleMap
-					// google={this.props.google}
+					google={this.props.google}
 					defaultZoom={this.props.zoom}
 					defaultCenter={{
 						lat: this.state.mapPosition.lat,

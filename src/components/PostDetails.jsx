@@ -234,8 +234,8 @@ const PostDetails = (props) => {
 							onChange={(e) => handleOnChange(e)}
 							// defaultValue={post[0].image.name}
 						/>
-
 						<div style={{ margin: '100px' }}>
+							<label>Pick-up Location</label>
 							<Map
 								// google={this.props.google}
 								center={{

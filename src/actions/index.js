@@ -5,7 +5,6 @@ import {
 	POST_INFO,
 	SAVE_COORDINATE,
 	ALL_POST,
-	SIGN_OUT,
 	SINGLE_POST,
 	ALL_COMMENTS,
 	REPLY,
@@ -25,13 +24,6 @@ export const signUp = (user) => {
 export const signIn = (user) => {
 	return {
 		type: SIGN_IN,
-		user
-	};
-};
-
-export const signOut = (user) => {
-	return {
-		type: SIGN_OUT,
 		user
 	};
 };

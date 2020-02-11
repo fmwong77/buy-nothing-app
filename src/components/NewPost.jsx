@@ -168,6 +168,7 @@ const NewPost = (props) => {
 						/>
 
 						<div style={{ margin: '100px' }}>
+							<label>Pick-up Location</label>
 							<Map
 								// google={this.props.google}
 								center={{

@@ -14,19 +14,16 @@ import PostBrowser from './PostBrowser';
 import ChangePassword from './ChangePassword';
 import NewPost from './NewPost';
 import CommentContainier from './CommentContainer';
-import { fetchUserProfile } from '../actions';
+import { signIn } from '../actions';
 
 class App extends Component {
-	componentDidMount() {
-		this.props.fetchUserProfile();
-	}
-
 	render() {
+		console.log(this.props.isSignedIn);
 		return (
 			<Router history={browserHistory}>
 				<div className="app">
 					<NavBar render={(routeProps) => <NavBar {...routeProps} />} />
-					<Route exact path="/home" component={Home} />
+					<Route exact path="/" component={Home} />
 					<Route exact path="/sign-up" component={SignUp} />
 					<Route exact path="/sign-in" component={Login} />
 					<Route
@@ -41,24 +38,23 @@ class App extends Component {
 							<NewPost />
 						)}
 					</Route>
-					<Route exact path="/post-browser">
-						{this.props.isSignedIn ? (
-							<PostBrowser type={'view'} />
-						) : (
-							// <PostBrowser type={'view'} />
-							<Redirect to="/sign-in?redirect=post-browser" />
-						)}
-					</Route>
+					<Route
+						exact
+						path="/post-browser"
+						render={(props) => <PostBrowser type="view" />}
+					></Route>
 					<Route
 						exact
 						path="/comments/:id"
 						component={(props) => <CommentContainier {...props} />}
 					></Route>
-					<Route
-						exact
-						path="/manage-my-post"
-						component={() => <PostBrowser type={'manage'} />}
-					/>
+					<Route exact path="/manage-my-post">
+						{this.props.isSignedIn ? (
+							<PostBrowser type={'manage'} />
+						) : (
+							<Redirect to="/sign-in" />
+						)}
+					</Route>
 					<Route exact path="/change-password">
 						{this.props.isSignedIn ? (
 							<ChangePassword />
@@ -83,8 +79,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		fetchUserProfile: () => {
-			dispatch(fetchUserProfile());
+		// fetchUserProfile: () => {
+		// 	dispatch(fetchUserProfile());
+		// }
+		signIn: (user) => {
+			dispatch(signIn(user));
 		}
 	};
 };

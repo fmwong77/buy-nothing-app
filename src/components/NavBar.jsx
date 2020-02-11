@@ -33,7 +33,7 @@ class NavBar extends Component {
 			});
 
 			localStorage.removeItem('token');
-			localStorage.removeItem('userId');
+			localStorage.removeItem('current_user');
 		}
 	};
 
@@ -55,7 +55,7 @@ class NavBar extends Component {
 						</Menu.Item>
 						<Menu.Item
 							as={Link}
-							to="/home"
+							to="/"
 							name="home"
 							active={activeItem === 'home'}
 							onClick={this.handleItemClick}
@@ -111,7 +111,7 @@ class NavBar extends Component {
 						{this.props.isSignedIn ? (
 							<Menu.Item
 								as={Link}
-								to="/home"
+								to="/"
 								name="sign-out"
 								active={activeItem === 'sign-out'}
 								onClick={this.handleItemClick}
