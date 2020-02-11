@@ -1,8 +1,9 @@
 import React from 'react';
 import { signIn } from '../actions';
 import { useSelector, useDispatch } from 'react-redux';
-import swal from 'sweetalert';
+// import swal from 'sweetalert';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import {
 	Button,
@@ -20,14 +21,19 @@ const Login = (props) => {
 	const dispatch = useDispatch();
 
 	const handleSubmit = (e) => {
-		console.log(e.target.username.value);
 		e.preventDefault();
 
 		const username = e.target.username.value;
 		const password = e.target.password.value;
 
 		if (username.length === 0 || password.length === 0) {
-			swal('Oops!', 'Username or password cannot be blank...', 'error');
+			Swal.fire({
+				title: 'Oops!',
+				text: 'Username or password cannot be blank...',
+				icon: 'error',
+				confirmButtonText: 'Ok'
+			});
+			// swal('Oops!', 'Username or password cannot be blank...', 'error');
 		} else {
 			fetch('http://localhost:3000/api/v1/login', {
 				method: 'POST',
@@ -59,7 +65,13 @@ const Login = (props) => {
 						props.history.push('/post-browser');
 						// props.history.push('/manage-my-post');
 					} else {
-						swal('Oops!', 'Invalid Username or Password!', 'error');
+						Swal.fire({
+							title: 'Oops!',
+							text: 'Invalid Username or Password!',
+							icon: 'error',
+							confirmButtonText: 'Ok'
+						});
+						// swal('Oops!', 'Invalid Username or Password!', 'error');
 					}
 				});
 		}
@@ -69,7 +81,11 @@ const Login = (props) => {
 		<div className="App">
 			<br></br>
 			<br></br>
-			<br></br>
+			<Message
+				attached
+				header="Welcome to our site!"
+				content="Sign in for the best experience"
+			/>
 			<Grid textAlign="center" verticalAlign="middle">
 				<Grid.Column style={{ maxWidth: 450 }}>
 					<Header as="h2" color="teal" textAlign="center">

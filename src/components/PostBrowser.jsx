@@ -2,7 +2,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPosts, signIn } from '../actions';
+import { fetchPosts, signIn, allPosts } from '../actions';
 import ItemCard from './ItemCard';
 import { Redirect } from 'react-router';
 import Search from './Search.jsx';
@@ -12,13 +12,35 @@ const PostBrowser = (props) => {
 	const dispatch = useDispatch();
 	const posts = useSelector((state) => state.post);
 	const user = useSelector((state) => state.user);
+	const filterInfo = useSelector((state) => state.filterInfo);
 
 	useEffect(() => {
 		// getPosts();
-		dispatch(fetchPosts(props.type, user.id));
-	}, []);
+		// dispatch(fetchPosts(props.type, user.id));
+		const token = localStorage.getItem('token');
 
-	console.log(posts);
+		fetch(
+			`http://localhost:3000/api/v1/posts?type=${props.type}&user_id=${user.id}`,
+			{
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${token}`
+				}
+			}
+		)
+			.then((response) => response.json())
+			.then((data) => {
+				dispatch(allPosts(data));
+				if (filterInfo.category_id) {
+					console.log(filterInfo.category_id);
+
+					const filteredPost = data.filter(
+						(post) => post.category_id === filterInfo.category_id
+					);
+					dispatch(allPosts(filteredPost));
+				}
+			});
+	}, []);
 
 	return (
 		<div>

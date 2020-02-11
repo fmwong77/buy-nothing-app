@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
-import { Form } from 'semantic-ui-react';
-import { fetchCategories, allPosts } from '../actions';
+import React, { useEffect, useRef } from 'react';
+import { Form, Checkbox } from 'semantic-ui-react';
+import { fetchCategories, allPosts, filterInfo } from '../actions';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Search = (props) => {
 	const dispatch = useDispatch();
 	const categories = useSelector((state) => state.categories);
-	let category_id = null;
+	const category = useSelector((state) => state.filterInfo);
 	const user = useSelector((state) => state.user);
 
 	useEffect(() => {
@@ -17,9 +17,16 @@ const Search = (props) => {
 	const handleFilter = (e) => {
 		e.preventDefault();
 
-		let filteredArray;
-		const searchTerm = e.target.searchTerm.value;
+		let searchTerm = '';
+		const searchAll = e.target.name === 'showAll';
 		const token = localStorage.getItem('token');
+		let filteredArray;
+
+		if (!searchAll) {
+			searchTerm = e.target.searchTerm.value;
+		} else {
+			dispatch(filterInfo({ category: '', category_id: null }));
+		}
 
 		fetch(
 			`http://localhost:3000/api/v1/posts?type=${props.type}&user_id=${user.id}`,
@@ -32,12 +39,20 @@ const Search = (props) => {
 		)
 			.then((response) => response.json())
 			.then((data) => {
-				if (searchTerm.length === 0 && category_id === 0) {
+				if (
+					(searchTerm.length === 0 &&
+						category.category_id === 0 &&
+						category.category_id === null) ||
+					searchAll
+				) {
 					dispatch(allPosts(data));
-				} else if ((category_id !== null) & (category_id !== 0)) {
+				} else if (
+					(category.category_id !== null) &
+					(category.category_id !== 0)
+				) {
 					filteredArray = data
 						.filter((p) => p.title.includes(searchTerm))
-						.filter((cat) => cat.category_id === category_id);
+						.filter((cat) => cat.category_id === category.category_id);
 					dispatch(allPosts(filteredArray));
 				} else {
 					filteredArray = data.filter((p) => p.title.includes(searchTerm));
@@ -72,7 +87,6 @@ const Search = (props) => {
 					/>
 					<i className="search icon" />
 				</div>
-
 				<Form.Select
 					// fluid
 					label="Category"
@@ -80,11 +94,24 @@ const Search = (props) => {
 					options={renderCategory()}
 					placeholder="Select a Category"
 					onChange={(e, { value, text }) => {
-						category_id = value;
+						dispatch(
+							filterInfo({
+								category_id: value,
+								category: text
+							})
+						);
 					}}
+					// text={category.category}
 				/>
 				<button type="submit" className="ui secondary button">
 					Filter
+				</button>
+				<button
+					name="showAll"
+					className="ui secondary button"
+					onClick={(e) => handleFilter(e)}
+				>
+					Show All
 				</button>
 			</form>
 		</div>

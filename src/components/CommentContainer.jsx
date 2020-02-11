@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchComments, postComment, postReply, replyInfo } from '../actions';
 import CommentCard from './CommentCard';
-import swal from 'sweetalert';
+// import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
 const CommentContainier = (props) => {
 	const dispatch = useDispatch();
@@ -23,7 +24,13 @@ const CommentContainier = (props) => {
 
 		if (e.target.name === 'generate') {
 			const rnd = Math.random() * (comments.length - 1) + 1;
-			swal('Your lucky number is...', `${Math.round(rnd)}`, 'success');
+			Swal.fire({
+				title: 'Your lucky number is...',
+				text: `${Math.round(rnd)}`,
+				icon: 'success',
+				confirmButtonText: 'Ok'
+			});
+			// swal('Your lucky number is...', `${Math.round(rnd)}`, 'success');
 		} else {
 			if (e.target.content.value.length > 0) {
 				dispatch(

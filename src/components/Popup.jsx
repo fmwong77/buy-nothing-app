@@ -5,7 +5,6 @@ import '../styles/Popup.css';
 const Popup = (props) => {
 	const closeModal = () => {
 		const modalEl = document.getElementById('rng__modal');
-		console.log(modalEl);
 
 		modalEl.classList.remove('show__modal');
 	};

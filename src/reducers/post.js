@@ -5,17 +5,9 @@ const postReducer = (state = [], action) => {
 
 	switch (action.type) {
 		case ALL_POST:
-			// newState = {
-			// 	posts: action.posts
-			// };
-			console.log(state);
-
 			newState = action.post;
-			console.log(newState);
 			return newState;
 		case SINGLE_POST:
-			console.log([action.post]);
-
 			return [action.post];
 		case FETCH_POSTS:
 			return state;

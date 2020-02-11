@@ -17,22 +17,23 @@ import School from '../assets/school.jpeg';
 
 const Home = () => {
 	const categoryArr = [
-		'Kitchen & Dining',
-		'Furniture',
-		'Toys',
-		'Electronics',
-		'Apparel',
-		'Pets',
-		'Beauty, Personal Care & Health',
-		'Sports & Outdoor',
-		'Video games, movies, music & books',
-		'School & office supplies',
-		'Others'
+		{
+			text: 'Kitchen & Dining',
+			id: 2
+		},
+		{ text: 'Furniture', id: 1 },
+		{ text: 'Toys', id: 3 },
+		{ text: 'Electronics', id: 4 },
+		{ text: 'Apparel', id: 8 },
+		{ text: 'Pets', id: 9 },
+		{ text: 'Beauty, Personal Care & Health', id: 5 },
+		{ text: 'Sports & Outdoor', id: 6 },
+		{ text: 'Video games, movies, music & books', id: 7 },
+		{ text: 'School & office supplies', id: 10 },
+		{ text: 'Others', id: 11 }
 	];
 
 	const renderImage = (category) => {
-		console.log(category);
-
 		switch (category) {
 			case 'Kitchen & Dining':
 				return Kitchen;
@@ -70,7 +71,11 @@ const Home = () => {
 
 				<div id="categories__container" className="grid">
 					{categoryArr.map((category) => (
-						<Bubble category={category} image={renderImage(category)} />
+						<Bubble
+							category_id={category.id}
+							category={category.text}
+							image={renderImage(category.text)}
+						/>
 					))}
 				</div>
 			</Container>

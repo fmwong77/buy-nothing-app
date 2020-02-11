@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Container, Dropdown, Image, Menu, Icon } from 'semantic-ui-react';
+import { Container, Dropdown, Menu, Icon } from 'semantic-ui-react';
 
 import '../styles/NavBar.css';
-import { signOut } from '../actions';
+import { signIn, postInfo, filterInfo } from '../actions';
 
 class NavBar extends Component {
 	constructor(props) {
@@ -16,14 +16,24 @@ class NavBar extends Component {
 	handleItemClick = (e, { name }) => {
 		this.setState({ activeItem: name });
 		if (name === 'sign-out') {
-			this.props.signOut({
+			this.props.signIn({
 				id: null,
-				username: null,
+				username: '',
 				isSignedIn: false
 			});
 
-			// todo: got error when do history.push
-			// this.props.history.push('/');
+			this.props.postInfo({
+				category_id: null,
+				category: ''
+			});
+
+			this.props.filterInfo({
+				category_id: null,
+				category: ''
+			});
+
+			localStorage.removeItem('token');
+			localStorage.removeItem('userId');
 		}
 	};
 
@@ -101,7 +111,7 @@ class NavBar extends Component {
 						{this.props.isSignedIn ? (
 							<Menu.Item
 								as={Link}
-								to="/sign-out"
+								to="/home"
 								name="sign-out"
 								active={activeItem === 'sign-out'}
 								onClick={this.handleItemClick}
@@ -135,8 +145,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		signOut: (user) => {
-			dispatch(signOut(user));
+		signIn: (user) => {
+			dispatch(signIn(user));
+		},
+		postInfo: () => {
+			dispatch(postInfo({ category_id: null, category: '', image: null }));
+		},
+		filterInfo: () => {
+			dispatch(filterInfo({ category_id: null, category: '' }));
 		}
 	};
 };

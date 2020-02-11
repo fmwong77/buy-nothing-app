@@ -6,7 +6,6 @@ import { replyInfo, fetchReplies } from '../actions';
 import ReplyCard from './ReplyCard';
 
 const CommentCard = (props) => {
-	console.log(props.comment);
 	const dispatch = useDispatch();
 	const replies = useSelector((state) => state.reply);
 
@@ -15,8 +14,6 @@ const CommentCard = (props) => {
 	}, []);
 
 	const handleReply = (e) => {
-		console.log('replying');
-		console.log(props.comment.id);
 
 		const data = [
 			{
@@ -28,8 +25,6 @@ const CommentCard = (props) => {
 		];
 		dispatch(replyInfo(data));
 	};
-
-	// console.log(replies);
 
 	return (
 		<Comment>

@@ -6,7 +6,6 @@ const replyUserReducer = (state = [], action) => {
 	switch (action.type) {
 		case REPLY_USER:
 			newState = action.payload;
-			console.log(newState);
 
 			if (newState === null) return [];
 			else return newState;

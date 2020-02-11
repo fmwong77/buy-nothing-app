@@ -6,8 +6,6 @@ import { fetchReplyUser } from '../actions';
 import { Comment } from 'semantic-ui-react';
 
 const ReplyCard = (props) => {
-	console.log(props.reply);
-	// console.log(props.comment_id);
 	const dispatch = useDispatch();
 	const replyUser = useSelector((state) => state.replyUser);
 
@@ -15,7 +13,6 @@ const ReplyCard = (props) => {
 	useEffect(() => {
 		dispatch(fetchReplyUser(props.reply.user_id));
 	}, []);
-	console.log(replyUser);
 
 	return (
 		<Comment.Group>

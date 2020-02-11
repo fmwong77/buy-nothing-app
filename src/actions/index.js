@@ -10,7 +10,8 @@ import {
 	ALL_COMMENTS,
 	REPLY,
 	REPLY_INFO,
-	REPLY_USER
+	REPLY_USER,
+	FILTER_INFO
 } from '../constants';
 import axios from 'axios';
 
@@ -43,8 +44,6 @@ export const getCategories = (categories) => {
 };
 
 export const postInfo = (payload) => {
-	console.log(payload);
-
 	return {
 		type: POST_INFO,
 		payload
@@ -87,17 +86,20 @@ export const reply = (reply) => {
 };
 
 export const replyInfo = (payload) => {
-	console.log(payload);
-
 	return {
 		type: REPLY_INFO,
 		payload
 	};
 };
 
-export const replyUser = (payload) => {
-	console.log(payload);
+export const filterInfo = (payload) => {
+	return {
+		type: FILTER_INFO,
+		payload
+	};
+};
 
+export const replyUser = (payload) => {
 	return {
 		type: REPLY_USER,
 		payload
@@ -131,7 +133,6 @@ export const fetchComments = (post_id) => (dispatch) => {
 		})
 		.then((response) => {
 			if (response && response.status === 200) {
-				console.log(response.data);
 				dispatch(allComments(response.data));
 			} else {
 				console.log('Error fetching comments');
@@ -140,9 +141,38 @@ export const fetchComments = (post_id) => (dispatch) => {
 		.catch((error) => console.log(error.message));
 };
 
+export const fetchUserProfile = () => (dispatch) => {
+	console.log('fetching user');
+
+	if (localStorage.token) {
+		const token = localStorage.getItem('token');
+		axios
+			.get(`http://localhost:3000/api/v1/profile`, {
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${token}`
+				}
+			})
+			.then((response) => {
+				if (response) {
+					dispatch(
+						signIn({
+							id: response.data.user.id,
+							username: response.data.user.username,
+							isSignedIn: true
+						})
+					);
+					localStorage.setItem('userId', response.data.user.id);
+				} else {
+					console.log('Error fetching user');
+				}
+			})
+			.catch((error) => console.log(error.message));
+	}
+};
+
 export const fetchReplies = (comment_id) => (dispatch) => {
 	console.log('fetching replies');
-	console.log(comment_id);
 
 	const token = localStorage.getItem('token');
 
@@ -155,7 +185,6 @@ export const fetchReplies = (comment_id) => (dispatch) => {
 		})
 		.then((response) => {
 			if (response && response.status === 200) {
-				console.log(response.data);
 				dispatch(reply(response.data));
 			} else {
 				console.log('Error fetching replies');
@@ -178,7 +207,6 @@ export const fetchReplyUser = (user_id) => (dispatch) => {
 		})
 		.then((response) => {
 			if (response && response.status === 200) {
-				console.log(response.data);
 				dispatch(replyUser(response.data));
 			} else {
 				console.log('Error fetching replies user');
@@ -209,7 +237,6 @@ export const postComment = (post_id, user_id, content) => (dispatch) => {
 	fetch('http://127.0.0.1:3000/api/v1/comments/', configObject)
 		.then((response) => response.json())
 		.then((data) => {
-			console.log([data]);
 			if (data) {
 				dispatch(allComments(data));
 			}
@@ -223,10 +250,6 @@ export const postReply = (reply) => (dispatch) => {
 		comment_id: reply.comment_id,
 		content: reply.content
 	};
-
-	console.log(reply.user_id);
-	console.log(reply.comment_id);
-	console.log(reply.content);
 
 	const configObject = {
 		method: 'POST',
@@ -242,7 +265,6 @@ export const postReply = (reply) => (dispatch) => {
 	fetch('http://127.0.0.1:3000/api/v1/replies/', configObject)
 		.then((response) => response.json())
 		.then((data) => {
-			console.log([data]);
 			if (data) {
 				// const d = {
 				// 	user_id: data.user_id,
@@ -267,7 +289,6 @@ export const fetchCategories = () => (dispatch) => {
 		})
 		.then((response) => {
 			if (response && response.status === 200) {
-				console.log(response.data);
 				dispatch(getCategories(response.data));
 			} else {
 				console.log('Error fetching categories');

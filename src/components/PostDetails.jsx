@@ -10,7 +10,8 @@ import {
 	saveCoordinate
 } from '../actions';
 import Map from './Map';
-import swal from 'sweetalert';
+// import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import { DirectUpload } from 'activestorage';
 
 const PostDetails = (props) => {
@@ -49,7 +50,6 @@ const PostDetails = (props) => {
 			}
 		);
 		const data = await response.json();
-		console.log(data.category_id);
 
 		dispatch(singlePost(data));
 		setId(data.id);
@@ -83,7 +83,6 @@ const PostDetails = (props) => {
 			}
 		});
 		const data = await response.json();
-		console.log(data);
 
 		dispatch(getCategories(data));
 	};
@@ -94,7 +93,13 @@ const PostDetails = (props) => {
 		const description = e.target.description.value;
 
 		if (title.length === 0 || description.length === 0) {
-			swal('Oops!', 'Title or description cannot be blank...', 'error');
+			// swal('Oops!', 'Title or description cannot be blank...', 'error');
+			Swal.fire({
+				title: 'Oops!',
+				text: 'Title or description cannot be blank...',
+				icon: 'error',
+				confirmButtonText: 'Ok'
+			});
 		}
 
 		updatePost(title, description);
@@ -134,8 +139,6 @@ const PostDetails = (props) => {
 	};
 
 	const uploadFile = (title, description) => {
-		console.log(id);
-
 		const token = localStorage.getItem('token');
 		const upload = new DirectUpload(
 			info.image,
@@ -207,7 +210,8 @@ const PostDetails = (props) => {
 
 								dispatch(
 									postInfo({
-										category_id: value
+										category_id: value,
+										category: text
 									})
 								);
 							}}
