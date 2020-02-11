@@ -6,7 +6,6 @@ import { replyInfo, fetchReplies } from '../actions';
 import ReplyCard from './ReplyCard';
 
 const CommentCard = (props) => {
-	console.log(props.comment);
 	const dispatch = useDispatch();
 	const replies = useSelector((state) => state.reply);
 
@@ -15,8 +14,6 @@ const CommentCard = (props) => {
 	}, []);
 
 	const handleReply = (e) => {
-		console.log('replying');
-		console.log(props.comment.id);
 
 		const data = [
 			{
@@ -29,8 +26,6 @@ const CommentCard = (props) => {
 		dispatch(replyInfo(data));
 	};
 
-	console.log(replies);
-
 	return (
 		<Comment>
 			{/* <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" /> */}
@@ -42,7 +37,9 @@ const CommentCard = (props) => {
 				<Comment.Text>{props.comment.content}</Comment.Text>
 				{props.comment.replies.length === 0
 					? null
-					: props.comment.replies.map((reply) => <ReplyCard reply={reply} />)}
+					: props.comment.replies.map((reply) => (
+							<ReplyCard reply={reply} comment_id={props.comment.id} />
+					  ))}
 				{/* <ReplyCard comment_id={props.comment.id} /> */}
 				<Comment.Actions>
 					<Comment.Action onClick={handleReply}>Reply</Comment.Action>

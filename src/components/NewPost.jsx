@@ -10,7 +10,9 @@ import {
 	saveCoordinate
 } from '../actions';
 import Map from './Map';
-import swal from 'sweetalert';
+// import swal from 'sweetalert';
+import Swal from 'sweetalert2';
+
 import { DirectUpload } from 'activestorage';
 
 const NewPost = (props) => {
@@ -34,7 +36,6 @@ const NewPost = (props) => {
 			}
 		});
 		const data = await response.json();
-		console.log(data);
 
 		dispatch(getCategories(data));
 	};
@@ -45,9 +46,14 @@ const NewPost = (props) => {
 		const description = e.target.description.value;
 
 		if (title.length === 0 || description.length === 0) {
-			swal('Oops!', 'Title or description cannot be blank...', 'error');
+			Swal.fire({
+				title: 'Oops!',
+				text: 'Title or description cannot be blank...',
+				icon: 'error',
+				confirmButtonText: 'Ok'
+			});
+			// swal('Oops!', 'Title or description cannot be blank...', 'error');
 		}
-		console.log(info);
 		// debugger;
 		let data = {
 			title: title,
@@ -58,7 +64,6 @@ const NewPost = (props) => {
 			longitude: coordinate.lng,
 			image: info.image
 		};
-		console.log(data);
 
 		const token = localStorage.getItem('token');
 
@@ -76,9 +81,6 @@ const NewPost = (props) => {
 		fetch('http://127.0.0.1:3000/api/v1/posts/', configObject)
 			.then((response) => response.json())
 			.then((object) => {
-				console.log(object);
-				console.log(object.id);
-
 				if (object) {
 					uploadFile(info.image, object.id);
 				}
@@ -87,9 +89,6 @@ const NewPost = (props) => {
 	};
 
 	const uploadFile = (file, postId) => {
-		console.log(file);
-		console.log(postId);
-
 		const token = localStorage.getItem('token');
 		const upload = new DirectUpload(
 			file,

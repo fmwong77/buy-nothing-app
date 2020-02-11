@@ -1,7 +1,9 @@
 import React from 'react';
 import { signUp, userSignup } from '../actions';
 import { useSelector, useDispatch } from 'react-redux';
-import swal from 'sweetalert';
+// import swal from 'sweetalert';
+import Swal from 'sweetalert2';
+
 import {
 	Button,
 	Form,
@@ -28,16 +30,23 @@ function SignUp(props) {
 		const username = e.target.username.value;
 		const password = e.target.password.value;
 		const password_confirmation = e.target.password_confirmation.value;
-		console.log('hello');
-
-		console.log(username);
-		console.log(password);
-		console.log(password_confirmation);
 
 		if (username.length === 0 || password.length === 0) {
-			swal('Oops!', 'Username or password cannot be blank...', 'error');
+			Swal.fire({
+				title: 'Oops!',
+				text: 'Username or password cannot be blank...',
+				icon: 'error',
+				confirmButtonText: 'Ok'
+			});
+			// swal('Oops!', 'Username or password cannot be blank...', 'error');
 		} else if (password !== password_confirmation) {
-			swal('Oops!', 'Your password does not match...', 'error');
+			Swal.fire({
+				title: 'Oops!',
+				text: 'Your password does not match...',
+				icon: 'error',
+				confirmButtonText: 'Ok'
+			});
+			// swal('Oops!', 'Your password does not match...', 'error');
 		} else {
 			let data = {
 				username: username,
@@ -58,9 +67,14 @@ function SignUp(props) {
 			fetch('http://127.0.0.1:3000/api/v1/users/', configObject)
 				.then((response) => response.json())
 				.then((object) => {
-					console.log(object.user);
 					if (object.user) {
-						swal(`Welcome ${username}!`, 'Thank you for signing up', 'success');
+						Swal.fire({
+							title: `Welcome ${username}!`,
+							text: 'Thank you for signing up',
+							icon: 'success',
+							confirmButtonText: 'Ok'
+						});
+						// swal(`Welcome ${username}!`, 'Thank you for signing up', 'success');
 						localStorage.setItem('token', object.jwt);
 						dispatch(
 							signUp({
@@ -69,11 +83,17 @@ function SignUp(props) {
 						);
 						props.history.push('/item-details');
 					} else {
-						swal(
-							'Oops!',
-							`Username ${username} already exists! Please try another username`,
-							'error'
-						);
+						Swal.fire({
+							title: 'Oops!',
+							text: `Username ${username} already exists! Please try another username`,
+							icon: 'error',
+							confirmButtonText: 'Ok'
+						});
+						// swal(
+						// 	'Oops!',
+						// 	`Username ${username} already exists! Please try another username`,
+						// 	'error'
+						// );
 					}
 				});
 		}

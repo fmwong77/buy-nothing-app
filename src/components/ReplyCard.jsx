@@ -1,18 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchReplies } from '../actions';
+import { fetchReplyUser } from '../actions';
 
 import { Comment } from 'semantic-ui-react';
 
 const ReplyCard = (props) => {
-	console.log(props.reply);
 	const dispatch = useDispatch();
-	const replies = useSelector((state) => state.reply);
+	const replyUser = useSelector((state) => state.replyUser);
 
-	// useEffect(() => {
-	// 	dispatch(fetchReplies(props.comment_id));
-	// }, []);
+	let filtered = [];
+	useEffect(() => {
+		dispatch(fetchReplyUser(props.reply.user_id));
+	}, []);
 
 	return (
 		<Comment.Group>
@@ -21,8 +21,9 @@ const ReplyCard = (props) => {
 				: replies.map((reply) => ( */}
 			<Comment>
 				<Comment.Content>
-					<Comment.Author as="a">{}</Comment.Author>
+					<Comment.Author as="a">{replyUser.username}</Comment.Author>
 					<Comment.Metadata>
+						{/* <div>{props.reply.created_at}</div> */}
 						<div>{props.reply.created_at}</div>
 					</Comment.Metadata>
 					<Comment.Text>{props.reply.content}</Comment.Text>

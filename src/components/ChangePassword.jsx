@@ -1,5 +1,6 @@
 import React from 'react';
-import swal from 'sweetalert';
+// import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import { useSelector } from 'react-redux';
 
 import {
@@ -23,17 +24,26 @@ function ChangePassword(props) {
 		const password = e.target.password.value;
 		const password_confirmation = e.target.password_confirmation.value;
 
-		console.log(password);
-		console.log(password_confirmation);
-
 		if (password_confirmation.length === 0 || password.length === 0) {
-			swal(
-				'Oops!',
-				'Password or confirmation password cannot be blank...',
-				'error'
-			);
+			Swal.fire({
+				title: 'Oops!',
+				text: 'Password or confirmation password cannot be blank...',
+				icon: 'error',
+				confirmButtonText: 'Ok'
+			});
+			// swal(
+			// 	'Oops!',
+			// 	'Password or confirmation password cannot be blank...',
+			// 	'error'
+			// );
 		} else if (password !== password_confirmation) {
-			swal('Oops!', 'Your password does not match...', 'error');
+			Swal.fire({
+				title: 'Oops!',
+				text: 'Your password does not match...',
+				icon: 'error',
+				confirmButtonText: 'Ok'
+			});
+			// swal('Oops!', 'Your password does not match...', 'error');
 		} else {
 			let data = {
 				password: password
@@ -54,15 +64,26 @@ function ChangePassword(props) {
 			fetch(`http://127.0.0.1:3000/api/v1/users/${user.id}`, configObject)
 				.then((response) => response.json())
 				.then((object) => {
-					console.log(object);
 					if (object) {
-						swal('', 'Your password has been changed', 'success');
+						Swal.fire({
+							title: '',
+							text: 'Your password has been changed',
+							icon: 'success',
+							confirmButtonText: 'Ok'
+						});
+						// swal('', 'Your password has been changed', 'success');
 						localStorage.setItem('token', object.jwt);
 
 						// todo: need redirect
 						// props.history.push('/item-browser');
 					} else {
-						swal('Oops!', 'There is an error changing your password', 'error');
+						Swal.fire({
+							title: 'Oops!',
+							text: 'There is an error changing your password',
+							icon: 'error',
+							confirmButtonText: 'Ok'
+						});
+						// swal('Oops!', 'There is an error changing your password', 'error');
 					}
 				});
 		}

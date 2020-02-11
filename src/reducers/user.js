@@ -10,20 +10,19 @@ const userReducer = (state = {}, action) => {
 				password: action.user.password
 			};
 		case SIGN_IN:
-			console.log(action);
 			return {
 				...state,
 				id: action.user.id,
 				username: action.user.username,
 				isSignedIn: action.user.isSignedIn
 			};
-		case SIGN_OUT:
-			return {
-				...state,
-				id: action.user.id,
-				username: action.user.username,
-				isSignedIn: action.user.isSignedIn
-			};
+		// case SIGN_OUT:
+		// 	return {
+		// 		...state,
+		// 		id: action.user.id,
+		// 		username: action.user.username,
+		// 		isSignedIn: action.user.isSignedIn
+		// 	};
 		default:
 			return state;
 	}

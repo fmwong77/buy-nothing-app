@@ -14,11 +14,14 @@ import PostBrowser from './PostBrowser';
 import ChangePassword from './ChangePassword';
 import NewPost from './NewPost';
 import CommentContainier from './CommentContainer';
+import { fetchUserProfile } from '../actions';
 
 class App extends Component {
+	componentDidMount() {
+		this.props.fetchUserProfile();
+	}
+
 	render() {
-		console.log(this.props.isSignedIn);
-		console.log(this.props.username);
 		return (
 			<Router history={browserHistory}>
 				<div className="app">
@@ -33,16 +36,17 @@ class App extends Component {
 					></Route>
 					<Route exact path="/new-post">
 						{!this.props.isSignedIn ? (
-							<Redirect to="/sign-in?redirect=post-browser" />
+							<Redirect to="/sign-in?redirect=new-post" />
 						) : (
 							<NewPost />
 						)}
 					</Route>
 					<Route exact path="/post-browser">
-						{!this.props.isSignedIn ? (
-							<Redirect to="/sign-in?redirect=post-browser" />
-						) : (
+						{this.props.isSignedIn ? (
 							<PostBrowser type={'view'} />
+						) : (
+							// <PostBrowser type={'view'} />
+							<Redirect to="/sign-in?redirect=post-browser" />
 						)}
 					</Route>
 					<Route
@@ -72,7 +76,16 @@ class App extends Component {
 const mapStateToProps = (state) => {
 	return {
 		isSignedIn: state.user.isSignedIn,
-		username: state.user.username
+		username: state.user.username,
+		id: state.user.id
 	};
 };
-export default connect(mapStateToProps)(App);
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		fetchUserProfile: () => {
+			dispatch(fetchUserProfile());
+		}
+	};
+};
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -13,3 +13,5 @@ export const REPLY = 'REPLY';
 export const POST_REPLY = 'POST_REPLY';
 export const FETCH_REPLIES = 'FETCH_REPLIES';
 export const REPLY_INFO = 'REPLY_INFO';
+export const REPLY_USER = 'REPLY_USER';
+export const FILTER_INFO = 'FILTER_INFO';

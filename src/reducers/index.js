@@ -8,6 +8,8 @@ import postInfoReducer from './postinfo';
 import commentRecuder from './comment';
 import replyReducer from './reply';
 import replyInfoReducer from './replyInfo';
+import replyUserReducer from './replyUser';
+import filterInfoReducer from './filterInfo';
 
 const allReducer = combineReducers({
 	counter: counterReducer,
@@ -18,7 +20,22 @@ const allReducer = combineReducers({
 	postInfo: postInfoReducer,
 	comments: commentRecuder,
 	reply: replyReducer,
-	replyInfo: replyInfoReducer
+	replyInfo: replyInfoReducer,
+	replyUser: replyUserReducer,
+	filterInfo: filterInfoReducer
 });
 
 export default allReducer;
+
+// let defaultState = null;
+// export default (state, action) => {
+// 	switch (action.type) {
+// 		case 'RESET_STATE':
+// 			// detaching the reference on reset
+// 			state = .deepClone(defaultState);
+// 			return state;
+// 		default:
+// 			break;
+// 	}
+// 	return allReducer(state, action);
+// };

@@ -1,10 +1,10 @@
-import { REPLY_INFO } from '../constants';
+import { REPLY_USER } from '../constants';
 
-const replyInfoReducer = (state = [], action) => {
+const replyUserReducer = (state = [], action) => {
 	let newState = [];
 
 	switch (action.type) {
-		case REPLY_INFO:
+		case REPLY_USER:
 			newState = action.payload;
 
 			if (newState === null) return [];
@@ -15,4 +15,4 @@ const replyInfoReducer = (state = [], action) => {
 	}
 };
 
-export default replyInfoReducer;
+export default replyUserReducer;
