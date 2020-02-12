@@ -26,8 +26,8 @@ const PostDetails = (props) => {
 	const [id, setId] = useState(0);
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
-	const [latitude, setLatitude] = useState(0.0);
-	const [longitude, setLongitude] = useState(0.0);
+	const [latitude, setLatitude] = useState(30.5103116);
+	const [longitude, setLongitude] = useState(-97.837184);
 	const [category, setCategory] = useState('');
 	const [image, setImage] = useState('');
 
@@ -57,6 +57,7 @@ const PostDetails = (props) => {
 		setDescription(data.description);
 		setLatitude(data.latitude);
 		setLongitude(data.longitude);
+		dispatch(saveCoordinate({ lat: data.latitude, lng: data.longitude }));
 		setImage(data.image.url);
 		setCategory(data.category.category);
 
@@ -104,8 +105,7 @@ const PostDetails = (props) => {
 
 		updatePost(title, description);
 		uploadFile(title, description);
-		// todo: if redirect to manage-my-post will hit an error
-		props.history.push('/post-browser');
+		props.history.push('/manage-my-post');
 	};
 
 	const updatePost = (title, description) => {
@@ -172,6 +172,10 @@ const PostDetails = (props) => {
 		}
 	};
 
+	console.log(coordinate.lat);
+
+	console.log(coordinate.lng);
+
 	return (
 		<div className="App">
 			<Grid textAlign="center" verticalAlign="middle">
@@ -234,6 +238,7 @@ const PostDetails = (props) => {
 							onChange={(e) => handleOnChange(e)}
 							// defaultValue={post[0].image.name}
 						/>
+
 						<div style={{ margin: '100px' }}>
 							<label>Pick-up Location</label>
 							<Map
@@ -246,7 +251,6 @@ const PostDetails = (props) => {
 								zoom={15}
 							/>
 						</div>
-
 						<Button color="teal" fluid size="large" type="submit">
 							Save and Post
 						</Button>

@@ -18,9 +18,8 @@ import { signIn } from '../actions';
 
 class App extends Component {
 	render() {
-		console.log(this.props.isSignedIn);
 		return (
-			<Router history={browserHistory}>
+			<Router>
 				<div className="app">
 					<NavBar render={(routeProps) => <NavBar {...routeProps} />} />
 					<Route exact path="/" component={Home} />
@@ -41,8 +40,14 @@ class App extends Component {
 					<Route
 						exact
 						path="/post-browser"
-						render={(props) => <PostBrowser type="view" />}
-					></Route>
+						// render={(props) => <PostBrowser type="view" />}
+					>
+						{!this.props.isSignedIn ? (
+							<Redirect to="/sign-in?redirect=new-post" />
+						) : (
+							<PostBrowser type="view" />
+						)}
+					</Route>
 					<Route
 						exact
 						path="/comments/:id"
@@ -62,6 +67,12 @@ class App extends Component {
 							<Redirect to="/sign-in" />
 						)}
 					</Route>
+					<br></br>
+					<br></br>
+					<br></br>
+					<br></br>
+					<br></br>
+					<br></br>
 					{/* <Footer /> */}
 				</div>
 			</Router>

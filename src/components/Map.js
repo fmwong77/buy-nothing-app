@@ -37,6 +37,7 @@ class Map extends Component {
 	 * Get the current address from the default map position and set those values in the state
 	 */
 	componentDidMount() {
+		// debugger;
 		Geocode.fromLatLng(
 			this.state.mapPosition.lat,
 			this.state.mapPosition.lng

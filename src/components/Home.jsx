@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Header, Image } from 'semantic-ui-react';
+import { Container, Header } from 'semantic-ui-react';
 import Bubble from './Bubble';
 import '../styles/App.css';
 import '../styles/Home.css';
@@ -23,7 +23,7 @@ const Home = () => {
 		},
 		{ text: 'Furniture', id: 1 },
 		{ text: 'Toys', id: 3 },
-		{ text: 'Electronics', id: 4 },
+		{ text: 'Electronics & Computers', id: 4 },
 		{ text: 'Apparel', id: 8 },
 		{ text: 'Pets', id: 9 },
 		{ text: 'Beauty, Personal Care & Health', id: 5 },
@@ -67,7 +67,7 @@ const Home = () => {
 		<div className="sample-page-one" id="chart">
 			<Container text style={{ marginTop: '7em' }}>
 				<Header as="h1">Welcome to Gift-Away!!!</Header>
-				<p>Click on the bubble to view the posted items.</p>
+				<p>Sign in and click on the bubble to view the posted items.</p>
 
 				<div id="categories__container" className="grid">
 					{categoryArr.map((category) => (

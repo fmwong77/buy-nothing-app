@@ -33,7 +33,6 @@ class NavBar extends Component {
 			});
 
 			localStorage.removeItem('token');
-			localStorage.removeItem('current_user');
 		}
 	};
 
@@ -44,7 +43,7 @@ class NavBar extends Component {
 			<div className="App">
 				<Menu fixed="top" inverted>
 					<Container>
-						<Menu.Item as="a" header>
+						<Menu.Item header>
 							<i class="fa fa-diamond fa-2x" aria-hidden="true"></i>
 							{/* <Image
 								size="mini"
