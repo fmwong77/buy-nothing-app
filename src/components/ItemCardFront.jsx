@@ -11,7 +11,12 @@ const ItemCardFront = (props) => {
 	return (
 		<StackGrid columnWidth={240}>
 			<Card key={id}>
-				{image.url === null ? '' : <Image src={image.url} wrapped ui={false} />}
+				{/* <h3>{image.url === null ? '' : image.url}</h3> */}
+				{image === null || image === undefined ? (
+					''
+				) : (
+					<Image src={image.url} wrapped ui={false} />
+				)}
 
 				<Card.Content>
 					<Card.Header>{title}</Card.Header>

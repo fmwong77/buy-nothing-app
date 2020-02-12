@@ -1,4 +1,4 @@
-import { SIGN_UP, SIGN_IN, SIGN_OUT } from '../constants';
+import { SIGN_UP, SIGN_IN } from '../constants';
 
 const userReducer = (state = {}, action) => {
 	switch (action.type) {
@@ -10,19 +10,14 @@ const userReducer = (state = {}, action) => {
 				password: action.user.password
 			};
 		case SIGN_IN:
+			console.log(action.user);
+
 			return {
 				...state,
 				id: action.user.id,
 				username: action.user.username,
 				isSignedIn: action.user.isSignedIn
 			};
-		// case SIGN_OUT:
-		// 	return {
-		// 		...state,
-		// 		id: action.user.id,
-		// 		username: action.user.username,
-		// 		isSignedIn: action.user.isSignedIn
-		// 	};
 		default:
 			return state;
 	}

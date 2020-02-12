@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import React from 'react';
 import '../styles/Bubble.css';
 import { useSelector, useDispatch } from 'react-redux';
@@ -5,19 +6,16 @@ import { Link } from 'react-router-dom';
 import { filterInfo } from '../actions';
 
 const Bubble = (props) => {
-	const user = useSelector((state) => state.user);
 	const dispatch = useDispatch();
+	// const user = useSelector((state) => state.user);
 
 	const handleClick = () => {
 		dispatch(
-			filterInfo({ category_id: props.category_id, category: props.category })
+			filterInfo({
+				category_id: props.category_id,
+				category: props.category
+			})
 		);
-		// console.log(user.isSignedIn);
-		// if (user.isSignedIn === undefined) {
-		// 	return <Redirect to="/sign-in" />;
-		// } else if (user.isSignedIn) {
-		// 	return <Redirect to="/post-browser" />;
-		// }
 	};
 
 	return (
@@ -25,7 +23,9 @@ const Bubble = (props) => {
 			<Link to="/post-browser">
 				<span
 					className="bubble"
-					style={{ backgroundImage: `url('${props.image}'` }}
+					style={{
+						backgroundImage: `url('${props.image}'`
+					}}
 					onClick={handleClick}
 				>
 					<div className="overlay">

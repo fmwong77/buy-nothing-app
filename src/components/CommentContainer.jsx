@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchComments, postComment, postReply, replyInfo } from '../actions';
 import CommentCard from './CommentCard';
+import { withRouter } from 'react-router-dom';
+
 // import swal from 'sweetalert';
 import Swal from 'sweetalert2';
 
@@ -39,7 +41,7 @@ const CommentContainier = (props) => {
 				resetReplyState();
 			}
 		}
-		// props.history.push('/manage-my-post');
+		props.history.push('/manage-my-post');
 	};
 
 	const resetReplyState = () => {
@@ -75,6 +77,28 @@ const CommentContainier = (props) => {
 				{comments.length === 0
 					? null
 					: comments.map((comment) => <CommentCard comment={comment} />)}
+				{replyState.length > 0 ? (
+					<Form comment onSubmit={handleSubmit}>
+						<Form.TextArea name="content" />
+						<Button
+							content="Add Comment"
+							labelPosition="left"
+							icon="edit"
+							primary
+							type="submit"
+						/>
+						{comments.length > 0 && comments[0].post.user_id === user.id ? (
+							<Button
+								content="Generate Random Number"
+								labelPosition="left"
+								icon="gift"
+								primary
+								name="generate"
+								onClick={(e) => handleSubmit(e)}
+							/>
+						) : null}
+					</Form>
+				) : null}
 				<Form comment onSubmit={handleSubmit}>
 					<Form.TextArea name="content" />
 					<Button
@@ -125,4 +149,4 @@ const CommentContainier = (props) => {
 	);
 };
 
-export default CommentContainier;
+export default withRouter(CommentContainier);

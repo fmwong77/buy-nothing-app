@@ -2,16 +2,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Form, Grid, Card, Image, Message } from 'semantic-ui-react';
-import {
-	getCategories,
-	postInfo,
-	singlePost,
-	saveCoordinate
-} from '../actions';
+import { Button, Form, Grid } from 'semantic-ui-react';
+import { getCategories, postInfo } from '../actions';
 import Map from './Map';
-// import swal from 'sweetalert';
 import Swal from 'sweetalert2';
+import { withRouter } from 'react-router-dom';
 
 import { DirectUpload } from 'activestorage';
 
@@ -85,7 +80,14 @@ const NewPost = (props) => {
 					uploadFile(info.image, object.id);
 				}
 			});
-		// props.history.push('/post-browser');
+		// Swal.fire({
+		// 	title: 'Successfully Saved!',
+		// 	text: 'Your post has been saved.',
+		// 	icon: 'success',
+		// 	confirmButtonText: 'Ok'
+		// });
+		props.history.push('/manage-my-post');
+		// window.location.href = 'http://localhost:3001/manage-my-post';
 	};
 
 	const uploadFile = (file, postId) => {
@@ -168,6 +170,7 @@ const NewPost = (props) => {
 						/>
 
 						<div style={{ margin: '100px' }}>
+							<label>Pick-up Location</label>
 							<Map
 								// google={this.props.google}
 								center={{
@@ -189,4 +192,4 @@ const NewPost = (props) => {
 	);
 };
 
-export default NewPost;
+export default withRouter(NewPost);

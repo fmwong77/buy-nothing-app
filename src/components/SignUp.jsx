@@ -81,7 +81,7 @@ function SignUp(props) {
 								username: object.user.username
 							})
 						);
-						props.history.push('/item-details');
+						props.history.push('/');
 					} else {
 						Swal.fire({
 							title: 'Oops!',

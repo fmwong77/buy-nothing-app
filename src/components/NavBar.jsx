@@ -33,7 +33,6 @@ class NavBar extends Component {
 			});
 
 			localStorage.removeItem('token');
-			localStorage.removeItem('userId');
 		}
 	};
 
@@ -44,7 +43,7 @@ class NavBar extends Component {
 			<div className="App">
 				<Menu fixed="top" inverted>
 					<Container>
-						<Menu.Item as="a" header>
+						<Menu.Item header>
 							<i class="fa fa-diamond fa-2x" aria-hidden="true"></i>
 							{/* <Image
 								size="mini"
@@ -55,7 +54,7 @@ class NavBar extends Component {
 						</Menu.Item>
 						<Menu.Item
 							as={Link}
-							to="/home"
+							to="/"
 							name="home"
 							active={activeItem === 'home'}
 							onClick={this.handleItemClick}
@@ -111,7 +110,7 @@ class NavBar extends Component {
 						{this.props.isSignedIn ? (
 							<Menu.Item
 								as={Link}
-								to="/home"
+								to="/"
 								name="sign-out"
 								active={activeItem === 'sign-out'}
 								onClick={this.handleItemClick}

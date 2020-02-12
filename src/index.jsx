@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
 import App from './components/App';
 import { Provider } from 'react-redux';
-import store from './components/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './components/store';
 // import { createStore, applyMiddleware } from 'redux';
 // import thunk from 'redux-thunk';
 // import allReducer from './reducers';
@@ -17,7 +18,9 @@ import store from './components/store';
 
 ReactDOM.render(
 	<Provider store={store}>
-		<App />
+		<PersistGate persistor={persistor}>
+			<App />
+		</PersistGate>
 	</Provider>,
 	document.getElementById('root')
 );

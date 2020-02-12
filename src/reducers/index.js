@@ -10,6 +10,14 @@ import replyReducer from './reply';
 import replyInfoReducer from './replyInfo';
 import replyUserReducer from './replyUser';
 import filterInfoReducer from './filterInfo';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
+const persistConfig = {
+	key: 'root',
+	storage,
+	whitelist: ['user', 'post']
+};
 
 const allReducer = combineReducers({
 	counter: counterReducer,
@@ -25,17 +33,4 @@ const allReducer = combineReducers({
 	filterInfo: filterInfoReducer
 });
 
-export default allReducer;
-
-// let defaultState = null;
-// export default (state, action) => {
-// 	switch (action.type) {
-// 		case 'RESET_STATE':
-// 			// detaching the reference on reset
-// 			state = .deepClone(defaultState);
-// 			return state;
-// 		default:
-// 			break;
-// 	}
-// 	return allReducer(state, action);
-// };
+export default persistReducer(persistConfig, allReducer);

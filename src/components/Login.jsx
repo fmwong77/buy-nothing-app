@@ -50,8 +50,6 @@ const Login = (props) => {
 			})
 				.then((r) => r.json())
 				.then((data) => {
-					console.log(data);
-
 					if (data.user) {
 						localStorage.setItem('token', data.jwt);
 

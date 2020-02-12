@@ -1,6 +1,14 @@
 .bubble__container {
 	display: flex;
 	justify-content: center;
+	transition: transform 1s;
+	transform-style: preserve-3d;
+}
+
+.bubble__container:hover {
+	display: flex;
+	justify-content: center;
+	transform: scale(1.05);
 }
 
 .bubble {
