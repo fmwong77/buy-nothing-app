@@ -41,7 +41,7 @@ const Home = () => {
 				return Furniture;
 			case 'Toys':
 				return Toys;
-			case 'Electronics':
+			case 'Electronics & Computers':
 				return Electronics;
 			case 'Apparel':
 				return Apparel;

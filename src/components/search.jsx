@@ -97,6 +97,7 @@ const Search = (props) => {
 									})
 								);
 							}}
+							// defaultText={category.category}
 						/>
 						<Button type="submit" secondary>
 							Filter

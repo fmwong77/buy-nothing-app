@@ -1,5 +1,5 @@
 import React from 'react';
-import { signUp, userSignup } from '../actions';
+import { signUp, signIn } from '../actions';
 import { useSelector, useDispatch } from 'react-redux';
 // import swal from 'sweetalert';
 import Swal from 'sweetalert2';
@@ -81,7 +81,17 @@ function SignUp(props) {
 								username: object.user.username
 							})
 						);
-						props.history.push('/');
+
+						dispatch(
+							signIn({
+								id: object.user.id,
+								username: object.user.username,
+								isSignedIn: true
+							})
+						);
+						props.history.push('/post-browser');
+
+						// props.history.push('/');
 					} else {
 						Swal.fire({
 							title: 'Oops!',
@@ -97,6 +107,46 @@ function SignUp(props) {
 					}
 				});
 		}
+	};
+
+	const login = (username, password) => {
+		console.log('login');
+
+		fetch('http://localhost:3000/api/v1/login', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json'
+			},
+			body: JSON.stringify({
+				user: {
+					username,
+					password
+				}
+			})
+		})
+			.then((r) => r.json())
+			.then((data) => {
+				if (data.user) {
+					localStorage.setItem('token', data.jwt);
+
+					dispatch(
+						signIn({
+							id: data.user.id,
+							username: data.user.username,
+							isSignedIn: true
+						})
+					);
+					props.history.push('/post-browser');
+				} else {
+					Swal.fire({
+						title: 'Oops!',
+						text: 'Invalid Username or Password!',
+						icon: 'error',
+						confirmButtonText: 'Ok'
+					});
+				}
+			});
 	};
 
 	return (

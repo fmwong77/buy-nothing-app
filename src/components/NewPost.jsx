@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Form, Grid } from 'semantic-ui-react';
-import { getCategories, postInfo } from '../actions';
+import { getCategories, postInfo, fetchPosts } from '../actions';
 import Map from './Map';
 import Swal from 'sweetalert2';
 import { withRouter } from 'react-router-dom';
@@ -13,7 +13,6 @@ import { DirectUpload } from 'activestorage';
 const NewPost = (props) => {
 	const dispatch = useDispatch();
 	const categories = useSelector((state) => state.categories);
-	// const post = useSelector((state) => state.post);
 	const info = useSelector((state) => state.postInfo);
 	const user = useSelector((state) => state.user);
 	const coordinate = useSelector((state) => state.map);
@@ -47,7 +46,6 @@ const NewPost = (props) => {
 				icon: 'error',
 				confirmButtonText: 'Ok'
 			});
-			// swal('Oops!', 'Title or description cannot be blank...', 'error');
 		}
 		// debugger;
 		let data = {
@@ -80,14 +78,8 @@ const NewPost = (props) => {
 					uploadFile(info.image, object.id);
 				}
 			});
-		// Swal.fire({
-		// 	title: 'Successfully Saved!',
-		// 	text: 'Your post has been saved.',
-		// 	icon: 'success',
-		// 	confirmButtonText: 'Ok'
-		// });
+
 		props.history.push('/manage-my-post');
-		// window.location.href = 'http://localhost:3001/manage-my-post';
 	};
 
 	const uploadFile = (file, postId) => {
@@ -113,7 +105,7 @@ const NewPost = (props) => {
 					body: JSON.stringify({ image: blob.signed_id })
 				})
 					.then((response) => response.json())
-					.then((result) => console.log(result));
+					.then((result) => dispatch(fetchPosts('manage', user.id)));
 			}
 		});
 	};

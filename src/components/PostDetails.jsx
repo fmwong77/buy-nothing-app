@@ -7,10 +7,10 @@ import {
 	getCategories,
 	postInfo,
 	singlePost,
-	saveCoordinate
+	saveCoordinate,
+	fetchPosts
 } from '../actions';
 import Map from './Map';
-// import swal from 'sweetalert';
 import Swal from 'sweetalert2';
 import { DirectUpload } from 'activestorage';
 
@@ -19,7 +19,7 @@ const PostDetails = (props) => {
 	const categories = useSelector((state) => state.categories);
 	// const post = useSelector((state) => state.post);
 	const info = useSelector((state) => state.postInfo);
-	// const user = useSelector((state) => state.user);
+	const user = useSelector((state) => state.user);
 	const coordinate = useSelector((state) => state.map);
 	const token = localStorage.getItem('token');
 
@@ -161,7 +161,7 @@ const PostDetails = (props) => {
 					body: JSON.stringify({ image: blob.signed_id })
 				})
 					.then((response) => response.json())
-					.then((result) => console.log(result));
+					.then((result) => dispatch(fetchPosts('manage', user.id)));
 			}
 		});
 	};
