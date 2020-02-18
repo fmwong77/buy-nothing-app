@@ -67,12 +67,6 @@ class App extends Component {
 							<Redirect to="/sign-in" />
 						)}
 					</Route>
-					<br></br>
-					<br></br>
-					<br></br>
-					<br></br>
-					<br></br>
-					<br></br>
 					{/* <Footer /> */}
 				</div>
 			</Router>
@@ -90,9 +84,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		// fetchUserProfile: () => {
-		// 	dispatch(fetchUserProfile());
-		// }
 		signIn: (user) => {
 			dispatch(signIn(user));
 		}

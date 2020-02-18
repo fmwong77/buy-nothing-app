@@ -77,7 +77,7 @@ const CommentContainier = (props) => {
 				{comments.length === 0
 					? null
 					: comments.map((comment) => <CommentCard comment={comment} />)}
-				{replyState.length > 0 ? (
+				{/* {replyState.length > 0 ? (
 					<Form comment onSubmit={handleSubmit}>
 						<Form.TextArea name="content" />
 						<Button
@@ -98,7 +98,7 @@ const CommentContainier = (props) => {
 							/>
 						) : null}
 					</Form>
-				) : null}
+				) : null} */}
 				<Form comment onSubmit={handleSubmit}>
 					<Form.TextArea name="content" />
 					<Button

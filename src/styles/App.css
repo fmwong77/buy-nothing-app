@@ -2,6 +2,7 @@ body {
 	background-color: #ffffff;
 	-webkit-font-smoothing: antialiased;
 	-moz-font-smoothing: grayscale;
+	background-image: url('../assets/dynamic-style.png');
 }
 
 .grid {
