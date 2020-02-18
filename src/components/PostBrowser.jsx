@@ -4,9 +4,9 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { allPosts } from '../actions';
 import ItemCard from './ItemCard';
-import Search from './Search.jsx';
+import Search from './search.jsx';
 
-import { Message, Grid } from 'semantic-ui-react';
+import { Message } from 'semantic-ui-react';
 
 //create your forceUpdate hook
 // const useForceUpdate = () => {

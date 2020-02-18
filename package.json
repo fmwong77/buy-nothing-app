@@ -1,6 +1,11 @@
 {
 	"name": "buy-nothing-app",
+	"description": "a platform for you to post items you want to give away for free",
 	"version": "0.1.0",
+	"engines": {
+		"node": "13.1.0",
+		"npm": "6.13.6"
+	},
 	"private": true,
 	"dependencies": {
 		"@testing-library/jest-dom": "^4.2.4",
@@ -32,7 +37,6 @@
 		"semantic-ui-css": "^2.4.1",
 		"semantic-ui-react": "^0.88.2",
 		"semantic-ui-react-input-file": "^1.0.3",
-		"sweetalert": "^2.1.2",
 		"sweetalert2": "^9.7.2"
 	},
 	"resolutions": {

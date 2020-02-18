@@ -1,7 +1,6 @@
 import React from 'react';
 import { signUp, signIn } from '../actions';
 import { useSelector, useDispatch } from 'react-redux';
-// import swal from 'sweetalert';
 import Swal from 'sweetalert2';
 
 import {

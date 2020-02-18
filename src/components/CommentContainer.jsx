@@ -6,8 +6,6 @@ import { useEffect } from 'react';
 import { fetchComments, postComment, postReply, replyInfo } from '../actions';
 import CommentCard from './CommentCard';
 import { withRouter } from 'react-router-dom';
-
-// import swal from 'sweetalert';
 import Swal from 'sweetalert2';
 
 const CommentContainier = (props) => {
