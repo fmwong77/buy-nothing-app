@@ -25,7 +25,7 @@ function SignIn() {
 			// swal('Oops!', 'Username or password cannot be blank...', 'error');
 		} else {
 			fetch(
-				`http://127.0.0.1:3000/api/v1/users?username=${username}&password=${password}`
+				`https://gift-away-backend.herokuapp.com/api/v1/users?username=${username}&password=${password}`
 			)
 				.then((response) => response.json())
 				.then((data) => {

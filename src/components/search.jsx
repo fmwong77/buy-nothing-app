@@ -29,7 +29,7 @@ const Search = (props) => {
 		}
 
 		fetch(
-			`http://localhost:3000/api/v1/posts?type=${props.type}&user_id=${user.id}`,
+			`https://gift-away-backend.herokuapp.com/api/v1/posts?type=${props.type}&user_id=${user.id}`,
 			{
 				method: 'GET',
 				headers: {

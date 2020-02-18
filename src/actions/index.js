@@ -102,12 +102,15 @@ export const fetchPosts = (type, user_id) => (dispatch) => {
 	const token = localStorage.getItem('token');
 	console.log('fetching posts');
 
-	fetch(`http://localhost:3000/api/v1/posts?type=${type}&user_id=${user_id}`, {
-		method: 'GET',
-		headers: {
-			Authorization: `Bearer ${token}`
+	fetch(
+		`https://gift-away-backend.herokuapp.com/api/v1/posts?type=${type}&user_id=${user_id}`,
+		{
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
 		}
-	})
+	)
 		.then((response) => response.json())
 		.then((data) => dispatch(allPosts(data)));
 };
@@ -117,12 +120,15 @@ export const fetchComments = (post_id) => (dispatch) => {
 	const token = localStorage.getItem('token');
 
 	axios
-		.get(`http://localhost:3000/api/v1/comments?post_id=${post_id}`, {
-			method: 'GET',
-			headers: {
-				Authorization: `Bearer ${token}`
+		.get(
+			`https://gift-away-backend.herokuapp.com/api/v1/comments?post_id=${post_id}`,
+			{
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${token}`
+				}
 			}
-		})
+		)
 		.then((response) => {
 			if (response && response.status === 200) {
 				dispatch(allComments(response.data));
@@ -139,7 +145,7 @@ export const fetchUserProfile = () => (dispatch) => {
 	if (localStorage.token) {
 		const token = localStorage.getItem('token');
 		axios
-			.get(`http://localhost:3000/api/v1/profile`, {
+			.get(`https://gift-away-backend.herokuapp.com//api/v1/profile`, {
 				method: 'GET',
 				headers: {
 					Authorization: `Bearer ${token}`
@@ -169,12 +175,15 @@ export const fetchReplies = (comment_id) => (dispatch) => {
 	const token = localStorage.getItem('token');
 
 	axios
-		.get(`http://localhost:3000/api/v1/replies?comment_id=${comment_id}`, {
-			method: 'GET',
-			headers: {
-				Authorization: `Bearer ${token}`
+		.get(
+			`https://gift-away-backend.herokuapp.com/api/v1/replies?comment_id=${comment_id}`,
+			{
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${token}`
+				}
 			}
-		})
+		)
 		.then((response) => {
 			if (response && response.status === 200) {
 				dispatch(reply(response.data));
@@ -191,7 +200,7 @@ export const fetchReplyUser = (user_id) => (dispatch) => {
 	const token = localStorage.getItem('token');
 
 	axios
-		.get(`http://localhost:3000/api/v1/users/${user_id}`, {
+		.get(`https://gift-away-backend.herokuapp.com/api/v1/users/${user_id}`, {
 			method: 'GET',
 			headers: {
 				Authorization: `Bearer ${token}`
@@ -226,7 +235,10 @@ export const postComment = (post_id, user_id, content) => (dispatch) => {
 		body: JSON.stringify(data)
 	};
 
-	fetch('http://127.0.0.1:3000/api/v1/comments/', configObject)
+	fetch(
+		'https://gift-away-backend.herokuapp.com/api/v1/comments/',
+		configObject
+	)
 		.then((response) => response.json())
 		.then((data) => {
 			if (data) {
@@ -254,7 +266,7 @@ export const postReply = (reply) => (dispatch) => {
 		body: JSON.stringify(data)
 	};
 
-	fetch('http://127.0.0.1:3000/api/v1/replies/', configObject)
+	fetch('https://gift-away-backend.herokuapp.com/api/v1/replies/', configObject)
 		.then((response) => response.json())
 		.then((data) => {
 			if (data) {
@@ -273,7 +285,7 @@ export const fetchCategories = () => (dispatch) => {
 	const token = localStorage.getItem('token');
 
 	axios
-		.get('http://localhost:3000/api/v1/categories', {
+		.get('https://gift-away-backend.herokuapp.com/api/v1/categories', {
 			method: 'GET',
 			headers: {
 				Authorization: `Bearer ${token}`
