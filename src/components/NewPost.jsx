@@ -164,7 +164,6 @@ const NewPost = (props) => {
 							multiple
 							name="image_files"
 							onChange={(e) => handleOnChange(e)}
-							// defaultValue={post[0].image.name}
 						/>
 
 						<div style={{ margin: '100px' }}>

@@ -1,12 +1,11 @@
 import React from 'react';
 import { signIn } from '../actions';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 
 import { Message } from 'semantic-ui-react';
 
 function SignIn() {
-	const user = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 
 	const handleSubmit = (e) => {
@@ -22,7 +21,6 @@ function SignIn() {
 				icon: 'error',
 				confirmButtonText: 'Ok'
 			});
-			// swal('Oops!', 'Username or password cannot be blank...', 'error');
 		} else {
 			fetch(
 				`https://gift-away-backend.herokuapp.com/api/v1/users?username=${username}&password=${password}`
@@ -39,7 +37,6 @@ function SignIn() {
 						);
 						localStorage.setItem('token', data.jwt);
 						localStorage.setItem('userId', id);
-						// this.props.history.push('/');
 					} else {
 						Swal.fire({
 							title: 'Oops!',
@@ -47,7 +44,6 @@ function SignIn() {
 							icon: 'error',
 							confirmButtonText: 'Ok'
 						});
-						// swal('Oops!', 'Invalid Username or Password!', 'error');
 					}
 				});
 		}

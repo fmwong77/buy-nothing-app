@@ -1,20 +1,17 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { Comment } from 'semantic-ui-react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { replyInfo, fetchReplies } from '../actions';
 import ReplyCard from './ReplyCard';
 
 const CommentCard = (props) => {
 	const dispatch = useDispatch();
-	const replies = useSelector((state) => state.reply);
 
 	useEffect(() => {
 		dispatch(fetchReplies(props.comment.id));
-	}, []);
+	}, [dispatch, props.comment.id]);
 
 	const handleReply = (e) => {
-
 		const data = [
 			{
 				comment_id: props.comment.id,

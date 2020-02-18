@@ -1,6 +1,6 @@
 import React from 'react';
 import { signIn } from '../actions';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
@@ -11,7 +11,6 @@ import {
 	Header,
 	Message,
 	Segment
-	// Icon
 } from 'semantic-ui-react';
 
 import '../styles/Login.css';
@@ -32,7 +31,6 @@ const Login = (props) => {
 				icon: 'error',
 				confirmButtonText: 'Ok'
 			});
-			// swal('Oops!', 'Username or password cannot be blank...', 'error');
 		} else {
 			fetch('https://gift-away-backend.herokuapp.com/api/v1/login', {
 				method: 'POST',
@@ -60,7 +58,6 @@ const Login = (props) => {
 							})
 						);
 						props.history.push('/post-browser');
-						// props.history.push('/manage-my-post');
 					} else {
 						Swal.fire({
 							title: 'Oops!',
@@ -68,7 +65,6 @@ const Login = (props) => {
 							icon: 'error',
 							confirmButtonText: 'Ok'
 						});
-						// swal('Oops!', 'Invalid Username or Password!', 'error');
 					}
 				});
 		}
@@ -85,10 +81,7 @@ const Login = (props) => {
 			/>
 			<Grid textAlign="center" verticalAlign="middle">
 				<Grid.Column style={{ maxWidth: 450 }}>
-					<Header as="h2" color="teal" textAlign="center">
-						{/* <img src="/static/images/logo.png" alt="logo" className="image" />{' '} */}
-						{/* Sign-in to your account */}
-					</Header>
+					<Header as="h2" color="teal" textAlign="center"></Header>
 					<Form size="large" onSubmit={(event) => handleSubmit(event)}>
 						<Segment stacked>
 							<Form.Input

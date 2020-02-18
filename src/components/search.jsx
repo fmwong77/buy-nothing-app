@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Form, Grid, Button } from 'semantic-ui-react';
 import { fetchCategories, allPosts, filterInfo } from '../actions';
 import { useSelector, useDispatch } from 'react-redux';
@@ -85,7 +85,6 @@ const Search = (props) => {
 						</Form.Field>
 						<Form.Select
 							fluid
-							// label="Category"
 							name="category"
 							options={renderCategory()}
 							placeholder="Select a Category"
@@ -97,7 +96,6 @@ const Search = (props) => {
 									})
 								);
 							}}
-							// defaultText={category.category}
 						/>
 						<Button type="submit" secondary>
 							Filter

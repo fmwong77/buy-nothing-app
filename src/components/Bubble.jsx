@@ -1,13 +1,12 @@
 /* eslint-disable no-lone-blocks */
 import React from 'react';
 import '../styles/Bubble.css';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { filterInfo } from '../actions';
 
 const Bubble = (props) => {
 	const dispatch = useDispatch();
-	// const user = useSelector((state) => state.user);
 
 	const handleClick = () => {
 		dispatch(

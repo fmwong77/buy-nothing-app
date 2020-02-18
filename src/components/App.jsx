@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import { browserHistory } from 'react-router';
 import 'semantic-ui-css/semantic.min.css';
 import { connect } from 'react-redux';
 
 import NavBar from './NavBar';
-// import Footer from '../components/Footer';
 import Login from '../components/Login';
 import Home from '../components/Home';
 import SignUp from './SignUp';
@@ -37,11 +35,7 @@ class App extends Component {
 							<NewPost />
 						)}
 					</Route>
-					<Route
-						exact
-						path="/post-browser"
-						// render={(props) => <PostBrowser type="view" />}
-					>
+					<Route exact path="/post-browser">
 						{!this.props.isSignedIn ? (
 							<Redirect to="/sign-in?redirect=new-post" />
 						) : (

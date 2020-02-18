@@ -9,21 +9,16 @@ const ReplyCard = (props) => {
 	const dispatch = useDispatch();
 	const replyUser = useSelector((state) => state.replyUser);
 
-	let filtered = [];
 	useEffect(() => {
 		dispatch(fetchReplyUser(props.reply.user_id));
 	}, []);
 
 	return (
 		<Comment.Group>
-			{/* {replies.length === 0
-				? null
-				: replies.map((reply) => ( */}
 			<Comment>
 				<Comment.Content>
 					<Comment.Author as="a">{replyUser.username}</Comment.Author>
 					<Comment.Metadata>
-						{/* <div>{props.reply.created_at}</div> */}
 						<div>{props.reply.created_at}</div>
 					</Comment.Metadata>
 					<Comment.Text>{props.reply.content}</Comment.Text>

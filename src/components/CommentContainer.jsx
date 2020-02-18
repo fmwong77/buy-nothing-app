@@ -12,7 +12,6 @@ const CommentContainier = (props) => {
 	const dispatch = useDispatch();
 	const comments = useSelector((state) => state.comments);
 	const user = useSelector((state) => state.user);
-	// const replyData = useSelector((state) => state.reply);
 	const replyState = useSelector((state) => state.replyInfo);
 
 	useEffect(() => {
@@ -30,7 +29,6 @@ const CommentContainier = (props) => {
 				icon: 'success',
 				confirmButtonText: 'Ok'
 			});
-			// swal('Your lucky number is...', `${Math.round(rnd)}`, 'success');
 		} else {
 			if (e.target.content.value.length > 0) {
 				dispatch(
@@ -75,28 +73,6 @@ const CommentContainier = (props) => {
 				{comments.length === 0
 					? null
 					: comments.map((comment) => <CommentCard comment={comment} />)}
-				{/* {replyState.length > 0 ? (
-					<Form comment onSubmit={handleSubmit}>
-						<Form.TextArea name="content" />
-						<Button
-							content="Add Comment"
-							labelPosition="left"
-							icon="edit"
-							primary
-							type="submit"
-						/>
-						{comments.length > 0 && comments[0].post.user_id === user.id ? (
-							<Button
-								content="Generate Random Number"
-								labelPosition="left"
-								icon="gift"
-								primary
-								name="generate"
-								onClick={(e) => handleSubmit(e)}
-							/>
-						) : null}
-					</Form>
-				) : null} */}
 				<Form comment onSubmit={handleSubmit}>
 					<Form.TextArea name="content" />
 					<Button
@@ -142,7 +118,6 @@ const CommentContainier = (props) => {
 					</Form>
 				)}
 			</Comment.Group>
-			{/* <Popup className={}/> */}
 		</div>
 	);
 };

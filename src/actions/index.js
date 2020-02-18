@@ -270,12 +270,6 @@ export const postReply = (reply) => (dispatch) => {
 		.then((response) => response.json())
 		.then((data) => {
 			if (data) {
-				// const d = {
-				// 	user_id: data.user_id,
-				// 	comment_id: data.comment_id,
-				// 	content: data.content
-				// };
-				// dispatch(reply([d]));
 			}
 		});
 };

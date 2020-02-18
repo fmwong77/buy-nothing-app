@@ -45,11 +45,6 @@ class NavBar extends Component {
 					<Container>
 						<Menu.Item header>
 							<i class="fa fa-diamond fa-2x" aria-hidden="true"></i>
-							{/* <Image
-								size="mini"
-								src="/static/images/logo.png"
-								style={{ marginRight: '1.5em' }}
-							/> */}
 							Gift-Away
 						</Menu.Item>
 						<Menu.Item
@@ -60,13 +55,7 @@ class NavBar extends Component {
 							onClick={this.handleItemClick}
 						></Menu.Item>
 
-						<Menu.Item
-							as={Link}
-							// to="item-browser"
-							// name="item-browser"
-							// active={activeItem === 'item-browser'}
-							// onClick={this.handleItemClick}
-						></Menu.Item>
+						<Menu.Item as={Link}></Menu.Item>
 
 						<Dropdown item simple text="Member's Area">
 							<Dropdown.Menu>
@@ -80,7 +69,6 @@ class NavBar extends Component {
 									</Dropdown.Item>
 								)}
 								<Dropdown.Divider />
-								{/* <Dropdown.Header>Manage My Post</Dropdown.Header> */}
 								<Dropdown.Item>
 									<Icon name="dropdown" />
 									<span className="text">Manage My Post</span>

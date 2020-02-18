@@ -1,6 +1,6 @@
 import React from 'react';
 import { signUp, signIn } from '../actions';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 
 import {
@@ -10,18 +10,10 @@ import {
 	Header,
 	Message,
 	Segment
-	// Icon
 } from 'semantic-ui-react';
 
 function SignUp(props) {
-	const counter = useSelector((state) => state.counter);
-	const user = useSelector((state) => state.user);
 	const dispatch = useDispatch();
-
-	// const set_user = (user) => {
-	// 	dispatch(signUp(user));
-	// 	dispatch(userSignup(user));
-	// };
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -37,7 +29,6 @@ function SignUp(props) {
 				icon: 'error',
 				confirmButtonText: 'Ok'
 			});
-			// swal('Oops!', 'Username or password cannot be blank...', 'error');
 		} else if (password !== password_confirmation) {
 			Swal.fire({
 				title: 'Oops!',
@@ -45,7 +36,6 @@ function SignUp(props) {
 				icon: 'error',
 				confirmButtonText: 'Ok'
 			});
-			// swal('Oops!', 'Your password does not match...', 'error');
 		} else {
 			let data = {
 				username: username,
@@ -76,7 +66,6 @@ function SignUp(props) {
 							icon: 'success',
 							confirmButtonText: 'Ok'
 						});
-						// swal(`Welcome ${username}!`, 'Thank you for signing up', 'success');
 						localStorage.setItem('token', object.jwt);
 						dispatch(
 							signUp({
@@ -91,9 +80,7 @@ function SignUp(props) {
 								isSignedIn: true
 							})
 						);
-						props.history.push('/post-browser');
-
-						// props.history.push('/');
+						props.history.push('/');
 					} else {
 						Swal.fire({
 							title: 'Oops!',
@@ -101,59 +88,13 @@ function SignUp(props) {
 							icon: 'error',
 							confirmButtonText: 'Ok'
 						});
-						// swal(
-						// 	'Oops!',
-						// 	`Username ${username} already exists! Please try another username`,
-						// 	'error'
-						// );
 					}
 				});
 		}
 	};
 
-	const login = (username, password) => {
-		console.log('login');
-
-		fetch('https://gift-away-backend.herokuapp.com/api/v1/login', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Accept: 'application/json'
-			},
-			body: JSON.stringify({
-				user: {
-					username,
-					password
-				}
-			})
-		})
-			.then((r) => r.json())
-			.then((data) => {
-				if (data.user) {
-					localStorage.setItem('token', data.jwt);
-
-					dispatch(
-						signIn({
-							id: data.user.id,
-							username: data.user.username,
-							isSignedIn: true
-						})
-					);
-					props.history.push('/post-browser');
-				} else {
-					Swal.fire({
-						title: 'Oops!',
-						text: 'Invalid Username or Password!',
-						icon: 'error',
-						confirmButtonText: 'Ok'
-					});
-				}
-			});
-	};
-
 	return (
 		<div className="card">
-			{/* <br></br> */}
 			<br></br>
 			<br></br>
 			<Message
