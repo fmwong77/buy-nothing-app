@@ -19,7 +19,7 @@ const PostBrowser = (props) => {
 		const token = localStorage.getItem('token');
 
 		fetch(
-			`https://gift-away-backend.herokuapp.com/api/v1/posts?type=${props.type}&user_id=${user.id}`,
+			`http://gift-away-backend.herokuapp.com/api/v1/posts?type=${props.type}&user_id=${user.id}`,
 			{
 				method: 'GET',
 				headers: {

@@ -25,7 +25,7 @@ const CommentCard = (props) => {
 
 	return (
 		<Comment>
-			{/* <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" /> */}
+			{/* <Comment.Avatar src="http://react.semantic-ui.com/images/avatar/small/matt.jpg" /> */}
 			<Comment.Content>
 				<Comment.Author as="a">{props.comment.user.username}</Comment.Author>
 				<Comment.Metadata>

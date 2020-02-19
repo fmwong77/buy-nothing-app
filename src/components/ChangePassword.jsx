@@ -45,7 +45,7 @@ function ChangePassword(props) {
 			};
 
 			fetch(
-				`https://gift-away-backend.herokuapp.com/api/v1/users/${user.id}`,
+				`http://gift-away-backend.herokuapp.com/api/v1/users/${user.id}`,
 				configObject
 			)
 				.then((response) => response.json())

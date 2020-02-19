@@ -40,7 +40,7 @@ const PostDetails = (props) => {
 
 	const getPostById = async () => {
 		const response = await fetch(
-			`https://gift-away-backend.herokuapp.com/api/v1/posts/${props.match.params.id}`,
+			`http://gift-away-backend.herokuapp.com/api/v1/posts/${props.match.params.id}`,
 			{
 				method: 'GET',
 				headers: {
@@ -77,7 +77,7 @@ const PostDetails = (props) => {
 
 	const getCat = async () => {
 		const response = await fetch(
-			'https://gift-away-backend.herokuapp.com/api/v1/categories',
+			'http://gift-away-backend.herokuapp.com/api/v1/categories',
 			{
 				method: 'GET',
 				headers: {
@@ -122,7 +122,7 @@ const PostDetails = (props) => {
 		};
 
 		fetch(
-			`https://gift-away-backend.herokuapp.com/api/v1/posts/${id}?info=post`,
+			`http://gift-away-backend.herokuapp.com/api/v1/posts/${id}?info=post`,
 			{
 				method: 'PUT',
 				// mode: 'cors',
@@ -146,7 +146,7 @@ const PostDetails = (props) => {
 		const token = localStorage.getItem('token');
 		const upload = new DirectUpload(
 			info.image,
-			'https://gift-away-backend.herokuapp.com/rails/active_storage/direct_uploads'
+			'http://gift-away-backend.herokuapp.com/rails/active_storage/direct_uploads'
 		);
 		upload.create((error, blob) => {
 			if (error) {
@@ -154,7 +154,7 @@ const PostDetails = (props) => {
 			} else {
 				console.log("there's no error");
 
-				fetch(`https://gift-away-backend.herokuapp.com/api/v1/posts/${id}`, {
+				fetch(`http://gift-away-backend.herokuapp.com/api/v1/posts/${id}`, {
 					method: 'PUT',
 					// mode: 'cors',
 					headers: {

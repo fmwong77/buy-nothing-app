@@ -32,7 +32,7 @@ const Login = (props) => {
 				confirmButtonText: 'Ok'
 			});
 		} else {
-			fetch('https://gift-away-backend.herokuapp.com/api/v1/login', {
+			fetch('http://gift-away-backend.herokuapp.com/api/v1/login', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

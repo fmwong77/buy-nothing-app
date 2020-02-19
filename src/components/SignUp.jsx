@@ -54,7 +54,7 @@ function SignUp(props) {
 			};
 
 			fetch(
-				'https://gift-away-backend.herokuapp.com/api/v1/users/',
+				'http://gift-away-backend.herokuapp.com/api/v1/users/',
 				configObject
 			)
 				.then((response) => response.json())
