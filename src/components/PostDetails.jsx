@@ -40,7 +40,7 @@ const PostDetails = (props) => {
 
 	const getPostById = async () => {
 		const response = await fetch(
-			`http://gift-away-backend.herokuapp.com/api/v1/posts/${props.match.params.id}`,
+			`http://localhost:3000/api/v1/posts/${props.match.params.id}`,
 			{
 				method: 'GET',
 				headers: {
@@ -76,15 +76,12 @@ const PostDetails = (props) => {
 	};
 
 	const getCat = async () => {
-		const response = await fetch(
-			'http://gift-away-backend.herokuapp.com/api/v1/categories',
-			{
-				method: 'GET',
-				headers: {
-					Authorization: `Bearer ${token}`
-				}
+		const response = await fetch('http://localhost:3000/api/v1/categories', {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${token}`
 			}
-		);
+		});
 		const data = await response.json();
 
 		dispatch(getCategories(data));
@@ -121,19 +118,16 @@ const PostDetails = (props) => {
 			image: info.image
 		};
 
-		fetch(
-			`http://gift-away-backend.herokuapp.com/api/v1/posts/${id}?info=post`,
-			{
-				method: 'PUT',
-				// mode: 'cors',
-				headers: {
-					'Content-Type': 'application/json',
-					Accept: 'application/json',
-					Authorization: `Bearer ${token}`
-				},
-				body: JSON.stringify(data)
-			}
-		)
+		fetch(`http://localhost:3000/api/v1/posts/${id}?info=post`, {
+			method: 'PUT',
+			// mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+			body: JSON.stringify(data)
+		})
 			.then((response) => response.json())
 			.then((result) => {
 				if (result) {
@@ -146,7 +140,7 @@ const PostDetails = (props) => {
 		const token = localStorage.getItem('token');
 		const upload = new DirectUpload(
 			info.image,
-			'http://gift-away-backend.herokuapp.com/rails/active_storage/direct_uploads'
+			'http://localhost:3000/rails/active_storage/direct_uploads'
 		);
 		upload.create((error, blob) => {
 			if (error) {
@@ -154,7 +148,7 @@ const PostDetails = (props) => {
 			} else {
 				console.log("there's no error");
 
-				fetch(`http://gift-away-backend.herokuapp.com/api/v1/posts/${id}`, {
+				fetch(`http://localhost:3000/api/v1/posts/${id}`, {
 					method: 'PUT',
 					// mode: 'cors',
 					headers: {

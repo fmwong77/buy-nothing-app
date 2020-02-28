@@ -23,7 +23,7 @@ function SignIn() {
 			});
 		} else {
 			fetch(
-				`http://gift-away-backend.herokuapp.com/api/v1/users?username=${username}&password=${password}`
+				`http://localhost:3000/api/v1/users?username=${username}&password=${password}`
 			)
 				.then((response) => response.json())
 				.then((data) => {
